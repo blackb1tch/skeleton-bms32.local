@@ -1,0 +1,28 @@
+<?php
+$this->headTitle('Operator-panel');
+
+$booking_card_list = $this->booking_card_list;
+$statusFormConfirm = $this->statusFormConfirm;
+$statusFormReject = $this->statusFormReject;
+$is_sure = $this->is_sure;
+$paginatorParams = $this->paginatorParams;
+$url = $paginatorParams['url'] . $paginatorParams['current'];
+
+if (isset($booking_card_list)) {
+    foreach ($booking_card_list as $booking_card) {
+
+        $statusFormConfirm->setAttribute('action', '/are-you-sure');
+        $statusFormReject->setAttribute('action', '/are-you-sure');
+        $id = /*$booking->getId()*/
+            $booking_card['id'];
+        $statusFormConfirm->get('booking_id')->setAttributes(['value' => "$id"]);
+        $statusFormConfirm->get('url')->setAttributes(['value' => "$url"]);
+        $statusFormReject->get('booking_id')->setAttributes(['value' => "$id"]);
+        $statusFormReject->get('url')->setAttributes(['value' => "$url"]);
+
+        // выводит карточку заявки
+        echo $this->partial('application/operator/booking-card', ['statusFormConfirm' => $statusFormConfirm, 'statusFormReject' => $statusFormReject, 'booking_card' => $booking_card]);
+    }
+}
+echo $this->partial('application/partial/paginator', ['params' => $paginatorParams]);
+

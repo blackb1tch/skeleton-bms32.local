@@ -1,0 +1,14 @@
+<?php
+$time_button = $this->time_button;
+$this->headLink()->prependStylesheet('/css/time-buttons-form.css');
+?>
+<div class="buttons">
+        <?= $this->form()->openTag($time_button); ?>
+
+        <?= $this->formElement($time_button->get('selected_booking_time')); ?>
+        <?= $this->formElement($time_button->get('booking_msg_from_repair')); ?>
+
+        <?= $this->formElement($time_button->get('submit')); ?>
+
+        <?= $this->form()->closeTag(); ?>
+</div>

@@ -1,0 +1,16 @@
+<script>
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('GET', '/article/xmlhttprequest/example/json');
+
+    xhr.responseType = 'json';
+
+    xhr.send();
+
+    // тело ответа {"сообщение": "Привет, мир!"}
+    xhr.onload = function() {
+        let responseObj = xhr.response;
+        alert(responseObj.message); // Привет, мир!
+    };
+
+</script>

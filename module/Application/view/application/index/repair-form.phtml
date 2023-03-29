@@ -1,0 +1,28 @@
+<?php
+$repairForm = $this->repairForm;
+$form_response = $this->form_response;
+?>
+<div class="repair-form">
+    <div class="form-group ">
+        <div>
+            <?= $this->form()->openTag($repairForm); ?>
+
+            <h2>Выполняем ремонт:</h2>
+
+            <div>
+                <?= $this->formLabel($repairForm->get('repair')); ?>
+                <?= $this->formElement($repairForm->get('repair')); ?>
+                <?= $this->formElementErrors($repairForm->get('repair')); ?>
+
+                <?= $this->formElement($repairForm->get('submit')); ?>
+            </div>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+        <?php if ((!empty($form_response)) && ($form_response['form'] === 'repair-form')) { ?>
+            <span>Для ремонта "<?= $form_response['data'] ?>", необходимо записаться, доступное время записи:  </span>
+        <?php } ?>
+
+
+    </div>
+</div>

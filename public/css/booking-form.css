@@ -1,0 +1,11 @@
+div.booking-form h2 {
+	margin-top: 0.3rem;
+	margin-left: 0.3rem;
+
+}
+div.booking-form label {
+	margin-top: 10px;
+}
+div.booking-form  {
+	display:none;
+}

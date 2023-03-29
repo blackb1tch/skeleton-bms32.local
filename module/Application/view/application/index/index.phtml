@@ -1,0 +1,93 @@
+<?php
+if (isset($this->searchForm)) {
+    $searchForm = $this->searchForm;
+    $searchForm->prepare();
+}
+
+if (isset($this->repairForm)) {
+    $repairForm = $this->repairForm;
+    $repairForm->prepare();
+}
+
+if (isset($this->bookingForm)) {
+    $bookingForm = $this->bookingForm;
+    $bookingForm->prepare();
+}
+
+if (isset($this->bookingTimeButtons)) {
+    $bookingTimeButtons = $this->bookingTimeButtons;
+}
+
+$searchForm = $this->searchForm;
+$repairForm = $this->repairForm;
+$form_response = $this->form_response;
+$booking_time_buttons_is_visible = $this->booking_time_buttons_is_visible;
+$booking_form_is_visible = $this->booking_form_is_visible;
+$this->headLink()->prependStylesheet('/css/time-slots.css');
+?>
+
+<div class="container bg-light mt-5 ">
+    <div class="row">
+
+        <script type="module" src="/js/RepairForm.js"></script>
+        <script type="module" src="/js/SearchForm.js"></script>
+        <script type="module" src="/js/TimeSlots.js"></script>
+
+
+
+        <?php
+        // выводит форму поиска запчастей по каталогу
+        echo $this->partial('application/index/search-form', ['searchForm' => $searchForm, 'form_response' => $form_response]);
+        ?>
+
+        <?php
+        // выводит форму "выполняем ремонт"
+        echo $this->partial('application/index/repair-form', ['repairForm' => $repairForm, 'form_response' => $form_response]);
+
+        ?>
+        <?php
+        // выводит кнопки времени записи
+        if ($booking_time_buttons_is_visible) {
+            ?>
+
+            <div class="booking-time-control">
+                <h2>Доступное время на сегодня (<?= date('d.m.Y') ?>):</h2>
+                <div class="button-group">
+                    <?php
+                    foreach ($bookingTimeButtons['today'] as $time_button) {
+                        $time_button->prepare();
+                        echo $this->partial('application/index/time-buttons-form', ['time_button' => $time_button]);
+                    }
+                    ?>
+                </div>
+            </div>
+
+            <div class="booking-time-control">
+                <h2>Доступное время на завтра (<?= date('d.m.Y', strtotime('+1 day')) ?>):</h2>
+                <div class="button-group">
+                    <?php
+                    foreach ($bookingTimeButtons['tomorrow'] as $time_button) {
+                        $time_button->prepare();
+                        echo $this->partial('application/index/time-buttons-form', ['time_button' => $time_button]);
+                    }
+                    ?>
+                </div>
+            </div>
+
+            <?php
+        }
+        ?>
+
+
+            <?php
+//            if ($booking_form_is_visible) {
+
+                // выводит форму "оставить заявку на ремонт"
+                echo $this->partial('application/index/booking-form', ['bookingForm' => $bookingForm]);
+//            }
+            ?>
+
+    </div>
+</div>
+
+

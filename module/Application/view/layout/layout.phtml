@@ -1,0 +1,86 @@
+<?= $this->doctype() ?>
+
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+
+        <?= $this->headTitle('БрянскМАЗсервис')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->inlineScript()
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
+        ?>
+	
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-light">
+			<div class="container bg-light mt-5 ">
+				<div class="row">
+					<div class="col ">
+						<div class="container-fluid">
+							<img class="navbar-brand" src="" alt="bms-32 logo">
+						</div>
+						<div>
+							<div class="nav-item">
+								<span>
+									ЗАО "БрянскМАЗсервис"
+								</span>
+							</div>
+							<div class="nav-item">
+								<span>
+									Юридический адрес: 241050, г.Брянск, ул. Фрунзе 64А
+								</span>
+							</div>
+							<div class="nav-item">
+								<span>
+									ИНН 3235005700
+								</span>
+							</div>
+							<div class="nav-item">
+								<span>
+									КПП 325701001
+								</span>
+							</div>
+							<div class="nav-item">
+								<span>
+									ОГРН 1023201285250
+								</span>
+							</div>
+							<div class="nav-item">
+								<span>
+									Телефоны: 8-(4832)-66-38-58, 41-96-66
+								</span>
+							</div> 
+							<div class="nav-item">
+								<span>
+									e-mail: zao-bryanskmazservis@yandex.ru
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>			
+		</nav>
+
+        <div class="container">
+            <?= $this->content ?>
+            <footer class="footer">
+                <p>&copy; 2005 - <?= date('Y') ?> БрянскМАЗсервис. Все права защищены.</p>
+            </footer>
+        </div>
+        <?= $this->inlineScript() ?>
+    </body>
+</html>

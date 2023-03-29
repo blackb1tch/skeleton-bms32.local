@@ -1,0 +1,21 @@
+nav {
+margin-top:20px;
+}
+nav ul.pagination li {
+	border: 1px solid gray;
+	background-color:RGB(248, 249, 250);
+	
+	width: 30px;
+	height: 30px;
+	text-align:center;
+}
+a {
+	color:gray;
+}
+a:hover {
+	text-decoration: none;
+	color:black;
+}
+li:hover{
+	
+}

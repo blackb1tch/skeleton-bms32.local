@@ -1,0 +1,54 @@
+<?php
+$this->headLink()->prependStylesheet('/css/paginator.css');
+$count_pages = $this->params['count_pages'];
+$previous = $this->params['previous'];
+$next = $this->params['next'];
+$current = $this->params['current'];
+$url = $this->params['url'];
+if ($count_pages > 1): ?>
+
+    <nav>
+        <ul class="pagination">
+
+            <!-- Previous page link -->
+            <?php if (isset($previous)): ?>
+                <li>
+                    <a href="<?= $this->url($this->route) . $url . $previous; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li>
+                    <span aria-hidden="true">&laquo;</span>
+                </li>
+            <?php endif; ?>
+
+            <!-- Numbered page links -->
+            <?php for ($page = 1; $page <= $count_pages; $page++): ?>
+                <?php if ($page != $current): ?>
+                    <li>
+                        <a href="<?= $this->url($this->route) . $url . $page; ?>"><?= $this->escapeHtml($page); ?></a>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <span aria-hidden="true"><b><?= $this->escapeHtml($page); ?></b></span>
+                    </li>
+                <?php endif; ?>
+            <?php endfor; ?>
+
+            <!-- Next page link -->
+            <?php if (isset($next)): ?>
+                <li>
+                    <a href="<?php echo $this->url($this->route) . $url . $next; ?>"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li>
+                    <span aria-hidden="true">&raquo;</span>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+<?php endif; ?>

@@ -1,0 +1,32 @@
+<?php
+$booking = $this->booking;
+$statusForm = $this->statusForm;
+$url = $this->url;
+
+$is_sure = 'sure';
+$statusForm->get('is_sure')->setAttributes(['value' => "$is_sure"]);
+$statusForm->setAttribute('action', '/are-you-sure');
+
+$booking_id = /* $booking->getId() */  $booking['id'];
+$this->statusForm->get('booking_id')->setAttributes(['value' => "$booking_id"]);
+$this->statusForm->get('url')->setAttributes(['value' => "$url"]);
+
+$statusForm->get('reject')->setAttributes([
+    'value' => "Отмена",
+    'class' => 'btn'
+]);
+$statusForm->get('confirm')->setAttributes([
+    'value' => "Отклонить",
+    'class' => 'btn btn-danger'
+]);
+?>
+<div>
+    <h1>
+        Отклонить заявку?
+    </h1>
+</div>
+<?php
+echo $this->partial('application/operator/booking-card', ['statusFormConfirm' => $statusForm, 'statusFormReject' => $statusForm, 'booking_card' => $booking]);
+?>
+
+

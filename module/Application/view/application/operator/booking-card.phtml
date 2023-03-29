@@ -1,0 +1,111 @@
+<?php
+$this->headLink()->prependStylesheet('/css/booking-card.css');
+$statusFormConfirm = $this->statusFormConfirm;
+$statusFormReject = $this->statusFormReject;
+$booking_card = $this->booking_card;
+?>
+
+<div class="booking-card-control">
+    <div class="operator-booking-form">
+        <div class="container bg-light ">
+            <div class="row"><!-- div class='col-md-3'><div class='card__main'></div></div-->
+                <div class="col-8">
+                    <div class="form-group">
+                    <span>
+                        <em>
+                            Заявка на:
+                        </em>
+                        <b>
+                            <?php echo date("H:i d.m.Y", strtotime(/*$booking->getTime()*/ $booking_card['time'])) ?>
+                        </b>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                     <span class="created_time">
+                        <em>
+                            Создана:
+                        </em>
+                        <?php echo date("H:i d.m.Y", strtotime($booking_card['created_time'])) ?>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <em>
+                            ФИО:
+                        </em>
+                        <span><?php echo /* $booking->getName() */
+                            $booking_card['name'] ?>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <em>
+                            Телефон:
+                        </em>
+                        <span><?php echo /* $booking->getPhone() */
+                            $booking_card['phone'] ?>
+                    </span>
+                        <em>
+                            E-mail:
+                        </em>
+                        <span><?php echo /* $booking->getPhone() */
+                            $booking_card['email'] ?>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-8">
+                    <em>
+                        Сообщение:
+                    </em>
+                    <div class="form-group">
+                    <span><?php echo /* $booking->getMessage() */
+                        $booking_card['message'] ?>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <div class="operator-buttons">
+
+                            <div class="row">
+                                <div class="col">
+
+
+                                    <?= $this->form()->openTag($statusFormConfirm); ?>
+
+                                    <?= $this->formElement($statusFormConfirm->get('confirm')); ?>
+                                    <?= $this->formElement($statusFormConfirm->get('booking_id')); ?>
+                                    <?= $this->formElement($statusFormConfirm->get('is_sure')); ?>
+                                    <?= $this->formElement($statusFormConfirm->get('url')); ?>
+
+                                    <?= $this->form()->closeTag(); ?>
+                                </div>
+                                <div class="col">
+
+                                    <?= $this->form()->openTag($statusFormReject); ?>
+
+                                    <?= $this->formElement($statusFormReject->get('reject')); ?>
+                                    <?= $this->formElement($statusFormReject->get('booking_id')); ?>
+                                    <?= $this->formElement($statusFormReject->get('is_sure')); ?>
+                                    <?= $this->formElement($statusFormReject->get('url')); ?>
+
+                                    <?= $this->form()->closeTag(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

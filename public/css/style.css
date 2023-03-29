@@ -1,0 +1,24 @@
+input.form-control {
+	margin-bottom:0px;
+}
+.row {
+	margin-right: 5px;
+	margin-left: 5px;
+
+}
+.btn-primary {
+	padding-top: 3px;
+padding-bottom: 3px;
+padding-left: 18px;
+padding-right: 18px;
+margin-top:7px;
+}
+
+form ul {
+	margin-bottom:0px;
+	 list-style-type: none;
+	 padding:0;
+}
+form ul li {    
+  color: red;        
+}

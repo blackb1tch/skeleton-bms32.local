@@ -1,0 +1,49 @@
+<?php
+$bookingForm = $this->bookingForm;
+$this->headLink()->prependStylesheet('/css/booking-form.css');
+?>
+<div class="booking-form">
+
+    <?= $this->form()->openTag($bookingForm); ?>
+
+    <h2>Запись на ремонт:</h2>
+
+    <div class="form-group">
+
+        <div>
+
+            <?= $this->formLabel($bookingForm->get('hidden_booking_time')); ?>
+
+            <?= $this->formElement($bookingForm->get('hidden_booking_time')); ?>
+            <?= $this->formElementErrors($bookingForm->get('hidden_booking_time')); ?>
+            <?= $this->formElement($bookingForm->get('disabled_booking_time')); ?>
+            <?= $this->formElementErrors($bookingForm->get('disabled_booking_time')); ?>
+        </div>
+        <div>
+            <?= $this->formLabel($bookingForm->get('name')); ?>
+            <?= $this->formElement($bookingForm->get('name')); ?>
+            <?= $this->formElementErrors($bookingForm->get('name')); ?>
+        </div>
+        <div>
+            <?= $this->formLabel($bookingForm->get('email')); ?>
+            <?= $this->formElement($bookingForm->get('email')); ?>
+            <?= $this->formElementErrors($bookingForm->get('email')); ?>
+        </div>
+        <div>
+            <?= $this->formLabel($bookingForm->get('phone')); ?>
+            <?= $this->formElement($bookingForm->get('phone')); ?>
+            <?= $this->formElementErrors($bookingForm->get('phone')); ?>
+        </div>
+        <div>
+            <?= $this->formLabel($bookingForm->get('booking-msg')); ?>
+            <?= $this->formElement($bookingForm->get('booking-msg')); ?>
+            <?= $this->formElementErrors($bookingForm->get('booking-msg')); ?>
+        </div>
+        <div>
+            <?= $this->formElement($bookingForm->get('submit')); ?>
+        </div>
+    </div>
+    <?= $this->form()->closeTag(); ?><a id="booking"></a>
+    <script type="module" src="/js/BookingForm.js"></script>
+</div>
+

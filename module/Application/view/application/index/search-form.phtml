@@ -1,0 +1,35 @@
+<?php
+$searchForm = $this->searchForm;
+$form_response = $this->form_response;
+//$this->headScript()->appendFile('/js/xhr.js', 'text/javascript');
+$searchForm->get('submit')->setAttributes(['type' => "button"]);
+$searchForm->get('submit')->setAttributes(['onclick' => "Search()"]);
+?>
+<div class="search-form">
+    <div class="form-group ">
+        <h2>Продаем запчасти</h2>
+
+        <?= $this->form()->openTag($searchForm); ?>
+
+        <div>
+            <?= $this->formLabel($searchForm->get('spare_parts')); ?>
+            <?= $this->formElement($searchForm->get('spare_parts')); ?>
+            <?= $this->formElementErrors($searchForm->get('spare_parts')); ?>
+        </div>
+
+        <div>
+            <?= $this->formElement($searchForm->get('submit')); ?>
+        </div>
+
+        <?= $this->form()->closeTag(); ?>
+
+        <?php if ((!empty($form_response)) && ($form_response['form'] === 'search-form')) { ?>
+            <div>
+                <span>Поиск выполнен успешно, "<?= $form_response['data'] ?>" в наличии на складе, в размере <?= $form_response['param'] ?> шт.</span>
+            </div>
+        <?php } ?>
+        <div>
+            <span id="search_response"></span>
+        </div>
+    </div>
+</div>

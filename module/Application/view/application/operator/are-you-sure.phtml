@@ -1,0 +1,44 @@
+<?php
+$booking = $this->booking;
+$statusForm = $this->statusForm;
+$is_sure = $this->is_sure;
+$booking_is_confirm = $this->booking_is_confirm;
+
+$statusForm->get('is_sure')->setAttributes(['value' => "$is_sure"]);
+$booking_id = $this->booking->getId();
+$this->statusForm->get('booking_id')->setAttributes(['value' => "$booking_id"]);
+
+
+if ($booking_is_confirm) {
+    $reject_or_confirm = 'Подтвердить';
+    $this->statusForm->get('reject')->setAttributes([
+        'value' => "Отмена",
+        'class' => 'btn'
+    ]);
+    $form_name = 'confirm-form';
+    $this->statusForm->get('form-name')->setAttributes(['value' => "$form_name"]);
+    /* confirm - подтвердить reject - отмена*/
+    ?>
+    <?php
+}
+if (!$booking_is_confirm) {
+    $reject_or_confirm = 'Отклонить';
+    $this->statusForm->get('confirm')->setAttributes([
+        'value' => "Отмена",
+        'class' => 'btn'
+    ]);
+    $form_name = 'reject-form';
+    $this->statusForm->get('form-name')->setAttributes(['value' => "$form_name"]);
+    /* reject - отклонить confirm - отмена */
+}
+?>
+<div>
+    <h1>
+        <?= $reject_or_confirm ?> заявку?
+    </h1>
+</div>
+<?php
+echo $this->partial('application/operator/booking-card', ['statusForm' => $statusForm, 'booking_card' => $booking]);
+?>
+
+

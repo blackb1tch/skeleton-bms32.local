@@ -1,0 +1,45 @@
+<?php
+if (isset($this->loginForm))
+{
+
+    $loginForm = $this->loginForm;
+    $loginForm->prepare();
+
+    ?>
+
+    <div class="container bg-light mt-5 ">
+        <div class="row">
+
+
+            <?= $this->form()->openTag($loginForm); ?>
+            <h1>Вход:</h1>
+            <div class="form-group">
+                <?= $this->formLabel($loginForm->get('login')); ?>
+                <?= $this->formElement($loginForm->get('login')); ?>
+                <?= $this->formElementErrors($loginForm->get('login')); ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($loginForm->get('password')); ?>
+                <?= $this->formElement($loginForm->get('password')); ?>
+                <?= $this->formElementErrors($loginForm->get('password')); ?>
+            </div>
+
+            <div>
+                <?php
+                    if (isset($this->error_message))
+                    {
+                        echo $this->error_message;
+                    }
+                ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formElement($loginForm->get('submit')); ?>
+            </div>
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+    <?php
+}
+?>

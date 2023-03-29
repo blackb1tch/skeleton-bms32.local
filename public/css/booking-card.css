@@ -1,0 +1,30 @@
+div.booking-card-control {
+	margin-top:20px;
+}
+div.operator-booking-form div.row {
+	//display:block;
+	
+}
+div.booking-card-control {
+	//position: relative;
+
+}
+div.operator-booking-form div.operator-buttons {
+	float:right;
+	
+}
+div.operator-booking-form span.created_time {
+	float:right;
+}div.operator-booking-form em {
+	color:gray;
+}
+div.operator-buttons  form input {
+	width:135px;
+
+
+}
+div.booking-card-control div.operator-buttons div.col{
+	padding-right: 0px;
+	padding-left: 5px;
+	margin-bottom:16px;
+}
