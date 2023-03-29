@@ -2,10 +2,11 @@
 
 namespace ModuleApi\Controller;
 
-use ModuleApi\Form\BookingForm;
-use ModuleApi\Form\BookingTimeButtonForm;
-use ModuleApi\Form\RepairForm;
-use ModuleApi\Form\SearchForm;
+use Application\Form\BookingForm;
+//use ModuleApi\Form\BookingForm;
+//use ModuleApi\Form\BookingTimeButtonForm;
+//use ModuleApi\Form\RepairForm;
+//use ModuleApi\Form\SearchForm;
 use ModuleApi\Middleware\CookieManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Controller\AbstractRestfulController;
@@ -71,20 +72,7 @@ class IndexController extends AbstractActionController
             'message' => 'Данные введены не корректно!'// поле с ошибкой,
         ]);
     }
-//
-//    /** Возвращает форму booking
-//     * @return ViewModel
-//     */
-//    public function readBookingAction()
-//    {
-//        $bookingForm = new BookingForm();
-//
-//        $viewModel = new ViewModel([
-//            'bookingForm' => $bookingForm,
-//        ]);
-//        $viewModel->setTemplate('module-api/index/booking-form');
-//        return $viewModel;
-//    }
+
 
 
     /** Возвращает JSON слоты времени для booking, на сегодня и завтра

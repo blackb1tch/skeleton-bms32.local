@@ -53,29 +53,19 @@ return [
                                 'options' => [
                                     'verb' => 'GET',
                                     'defaults' => [
-                                        'controller' => Controller\IndexController::class,
-                                        'action' => 'readBooking',
+                                        'controller' => Controller\OperatorController::class,
+                                        'action' => 'BookingList',
                                     ],
                                 ],
                             ],
                             'update-booking' => [
                                 'type' => Method::class,
                                 'options' => [
-                                    'verb' => 'POST',
+                                    'verb' => 'PUT',
+                                    'route' => '[/:id]',
                                     'defaults' => [
-                                        'controller' => Controller\IndexController::class,
-                                    ],
-                                    'child_routes' => [
-                                        'update-booking-by-id' => [
-                                            'type' => Segment::class,
-                                            'options' => [
-                                                'route' => '[/:id]',
-                                                'defaults' => [
-                                                    'controller' => Controller\OperatorController::class,
-                                                    'action' => 'updateBooking',
-                                                ],
-                                            ],
-                                        ],
+                                        'controller' => Controller\OperatorController::class,
+                                        'action' => 'updateBooking',
                                     ],
                                 ],
                             ],
@@ -83,20 +73,10 @@ return [
                                 'type' => Method::class,
                                 'options' => [
                                     'verb' => 'DELETE',
+                                    'route' => '[/:id]',
                                     'defaults' => [
-                                        'controller' => Controller\IndexController::class,
-                                    ],
-                                    'child_routes' => [
-                                        'delete-booking-by-id' => [
-                                            'type' => Segment::class,
-                                            'options' => [
-                                                'route' => '[/:id]',
-                                                'defaults' => [
-                                                    'controller' => Controller\OperatorController::class,
-                                                    'action' => 'deleteBooking',
-                                                ],
-                                            ],
-                                        ],
+                                        'controller' => Controller\OperatorController::class,
+                                        'action' => 'deleteBooking',
                                     ],
                                 ],
                             ],
@@ -157,7 +137,7 @@ return [
                             ],
                         ],
                     ],
-                    'panel' => [
+                  /*  'panel' => [
                         'type' => Literal::class,
                         'options' => [
                             'route' => '/panel',
@@ -200,7 +180,7 @@ return [
                                 ],
                             ],
                         ],
-                    ],
+                    ], */
                 ],
             ],
         ],
