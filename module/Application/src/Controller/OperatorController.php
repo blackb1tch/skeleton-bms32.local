@@ -147,6 +147,7 @@ class OperatorController extends AbstractActionController
                     }
                     // подтверждение действия
                     if (isset($data['confirm'])) {
+
                         $this->bookingManager->updateStatus($data);
                         return $this->redirect()->toRoute('panel',
                             [
@@ -177,10 +178,10 @@ class OperatorController extends AbstractActionController
 
 
                 if (isset($data['confirm'])) {
-                    $viewModel->setTemplate('ModuleApiV1/operator/confirm');
+                    $viewModel->setTemplate('application/operator/confirm');
                 }
                 if (isset($data['reject'])) {
-                    $viewModel->setTemplate('ModuleApiV1/operator/reject');
+                    $viewModel->setTemplate('application/operator/reject');
                 }
 
                 return $viewModel;

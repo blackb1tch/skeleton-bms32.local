@@ -159,40 +159,52 @@ class BookingManager
 
     /**
      * @param $status_data array
-     * @return array|string
+     * @return string
      */
     public function updateStatus(array $status_data)
     {
-        $filtred_status_data = [
-            'status' => null,
-            'booking_id' => null,
-        ];
 
         if (isset($status_data['reject'])) {
-            $filtred_status_data = [
-                'status' => 0,
-                'booking_id' => $status_data['booking_id']
+            $status_data = [
+                'status' => 'reject',
+                'booking_id' => $status_data['booking_id'],
+            ];
+
+        }
+        if (isset($status_data['confirm'])) {
+            $status_data = [
+                'status' => 'confirm',
+                'booking_id' => $status_data['booking_id'],
             ];
         }
 
-        else if (isset($status_data['confirm'])) {
-            $filtred_status_data = [
-                'status' => 1,
-                'booking_id' => $status_data['booking_id']
+        if ($status_data['status'] == 'reject' || $status_data['status'] == 'decline') {
+            $filtered_status_data = [
+                'status' => 0,
+                'booking_id' => $status_data['booking_id'],
             ];
-        } else {
-            throw new \Exception('Неверный статус');
-        }
+        } else
+            if ($status_data['status'] == 'confirm' || $status_data['status'] == 'accept' || $status_data['status'] == 'approve') {
+                $filtered_status_data = [
+                    'status' => 1,
+                    'booking_id' => $status_data['booking_id'],
+                ];
+            } else {
+                throw new \Exception('Неверный статус: ' . $status_data['status']);
+            }
 
         try {
-            $booking = $this->entityManager->getRepository(Booking::class)->find($filtred_status_data['booking_id']);
-            $booking->setStatus($filtred_status_data['status']);
+            $booking = $this->entityManager->getRepository(Booking::class)->find($filtered_status_data['booking_id']);
+            if (!$booking) {
+                throw new \Exception('ID: "' . $filtered_status_data['booking_id'] . '" не найден.');
+            }
+
+            $booking->setStatus($filtered_status_data['status']);
             $this->entityManager->flush();
-            return [
-                'response' => 'success',
-            ];
+
         } catch (\Exception $e) {
-            return $e->getMessage();
+
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -225,18 +237,42 @@ class BookingManager
     }
 
     /**
-     * @param $booking_id integer
-     * @return array | Booking object
+     * @param $id
+     * @return void
+     * @throws \Exception
      */
-    public function getBookingById(int $booking_id)
+    public function deleteBookingById($id)
     {
         try {
-            return $this->entityManager->getRepository(Booking::class)->findOneById($booking_id);
+            $booking = $this->getBookingById($id);
+            $this->entityManager->remove($booking);
+            $this->entityManager->flush();
+
         } catch (\Exception $e) {
-            return [
-                'response' => 'error',
-                'message' => $e->getMessage(),
-            ];
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+
+    /**
+     * @param $id integer
+     * @return array | Booking object
+     * @throws \Exception
+     */
+    public function getBookingById(int $id)
+    {
+        try {
+            $booking = $this->entityManager->getRepository(Booking::class)->findOneById($id);
+            if (!$booking) {
+                throw new \Exception('Запись с ID: ' . $id . ' не найдена!');
+            }
+            return $booking;
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+//            return [
+//                'response' => 'error',
+//                'message' => $e->getMessage(),
+//            ];
         }
     }
 
