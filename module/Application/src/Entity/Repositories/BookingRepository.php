@@ -33,7 +33,7 @@ class BookingRepository extends EntityRepository
      */
     public function countRowsByStatus($status)
     {
-       return $this->count(['status' => $status]);
+        return $this->count(['status' => $status]);
     }
 
     /**
@@ -64,6 +64,7 @@ class BookingRepository extends EntityRepository
         return $query->execute();
 //        return $query->getResult();
     }
+
     /**
      * @param int $page
      * @param null $status
