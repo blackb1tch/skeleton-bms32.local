@@ -1,0 +1,222 @@
+<?php
+//$this->headLink()->prependStylesheet('/css/booking-card-filter.css');
+
+
+?>
+<!--<script type="module" src="/js/OperatorMenu/filter/OperatorFilter.js"></script>-->
+<div class="filter">
+    <div class="filter-header">
+        <h1>Поиск бронирования</h1>
+        <!--        <i class="filter-button"></i>-->
+    </div>
+    <ul class="control-list">
+        <form>
+            <li class="control">
+                <div class="control">
+                    <div id="sort-by-status">
+                        <div class="header">
+                            <div class="control-label">
+                                <div>
+                                    <div>Сортировать по флагу</div>
+                                    <div class="icon">
+                                        <div class="icon-border">
+                                        </div>
+                                        <div class="icon-title">
+                                            i
+                                        </div>
+                                    </div>
+                                    <div class="hint">
+                                        Находит все новые/подтвержденные/отклоненные заявки
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="form_radio_btn">
+                                <input type="radio" id="status-new" class="btn-check" name="status"
+                                       autocomplete="off" checked value="null">
+                                <label class="btn btn-outline-primary filter-label-btn" for="status-new">
+                                    Новым
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="status" id="status-decline"
+                                       autocomplete="off" value="0">
+                                <label class="btn btn-outline-primary filter-label-btn" for="status-decline">
+
+                                    Откл.
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="status" id="status-approve"
+                                       autocomplete="off" value="1">
+                                <label class="btn btn-outline-primary filter-label-btn" for="status-approve">
+                                    Подтв.
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+            <li class="control">
+                <div class="control">
+                    <div id="sort-by-id">
+                        <div class="header">
+                            <div class="control-label">
+                                <div>
+                                    <div>Сортировать по записям</div>
+                                    <div class="icon">
+                                        <div class="icon-border">
+                                        </div>
+                                        <div class="icon-title">
+                                            i
+                                        </div>
+                                    </div>
+                                    <div class="hint">
+                                        Выберите параметр для сортировки по старым или новым
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="sort-by" id="sort-by-new"
+                                       autocomplete="off" checked value="desc">
+                                <label class="btn btn-outline-primary filter-label-btn" for="sort-by-new">
+                                    Новым
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="sort-by" id="sort-by-old"
+                                       autocomplete="off" value="asc">
+                                <label class="btn btn-outline-primary filter-label-btn" for="sort-by-old">
+                                    Старым
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+            <li class="control">
+                <div class="control">
+                    <div id="search-by-message">
+                        <div class="header">
+                            <div class="control-label">
+                                <div>
+                                    <div> Поиск</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div id="main-search">
+                                <input type="text" class="btn-check" name="search-field" id="main-search">
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="search-by" id="search-by-id"
+                                       autocomplete="off" checked value="id">
+                                <label class="btn btn-outline-primary filter-label-btn" for="search-by-id">
+                                    Id
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="search-by" id="search-by-phone"
+                                       autocomplete="off" value="phone">
+                                <label class="btn btn-outline-primary filter-label-btn" for="search-by-phone">
+                                    Телефон
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="search-by" id="search-by-email"
+                                       autocomplete="off" value="email">
+                                <label class="btn btn-outline-primary filter-label-btn" for="search-by-email">
+                                    E-mail
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="search-by" id="search-by-name"
+                                       autocomplete="off" value="name">
+                                <label class="btn btn-outline-primary filter-label-btn" for="search-by-name">
+                                    ФИО
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="control">
+                <div class="control">
+                    <div id="date-search">
+                        <div class="header">
+                            <div class="control-label">
+                                <div>
+                                    <div> Поиск по дате брони</div>
+                                    <div class="icon">
+                                        <div class="icon-border">
+                                        </div>
+                                        <div class="icon-title">
+                                            i
+                                        </div>
+                                    </div>
+                                    <div class="hint">
+                                        Дата и время на которое записался пользователь
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="search-input" id="search-by-date">
+
+                                <label for="create-date-from">С: </label>
+                                <input type="text" id="search-date-from" name="create-date-from" value=""
+                                       placeholder="<?php echo date('d.m.y ', strtotime('yesterday')) ?> "
+                                >
+                                <label for="create-date-to">по: </label>
+                                <input type="text" id="search-date-to" name="create-date-to" value=""
+                                       placeholder=" <?php echo date('d.m.y ', strtotime('today')) ?> "
+                                >
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="search-by-date" id="search-by-date"
+                                       autocomplete="off" checked value="date">
+                                <label class="btn btn-outline-primary filter-label-btn" for="search-by-date">
+                                    время записи
+                                </label>
+                            </div>
+                            <div class="form_radio_btn">
+                                <input type="radio" class="btn-check" name="search-by-date" id="search-by-create-date"
+                                       autocomplete="off" value="created-date">
+                                <label class="btn btn-outline-primary filter-label-btn" for="search-by-create-date">
+                                    время создания
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="control">
+                <div class="control">
+                    <div class="header">
+                        <div class="control-label">
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div id="reset-btn">
+                            <div class="form_radio_btn">
+                                <input type="reset" class="btn btn-outline-primary" id="reset">
+                                <label class="btn btn-outline-primary filter-label-btn" for="reset">
+                                    Сбросить фильтры
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </form>
+    </ul>
+</div>
+

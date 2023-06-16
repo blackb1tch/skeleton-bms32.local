@@ -1,30 +1,74 @@
-div.booking-card-control {
-	margin-top:20px;
+
+div.booking-card-list{
+	
+	font-family:'Ubuntu', 'Nunito', serif;
+	display:inline-block;
+	
+	width:75%;
+	margin:2em;
+	margin-bottom:0;
+
 }
-div.operator-booking-form div.row {
-	//display:block;
+
+@media (max-width: 768px) {
+   div.booking-card-list {
+	width: 100%;
+	margin: 0.5em;
+  }
+}
+
+div.booking-card-control {
+	display:none;
+}
+div.booking-card-list ul{
+		list-style-type: none;
+		
+}
+
+div.booking-card-list div.booking-card-control em{
+	color:#6c757d;
+}
+div.booking-card-list div.booking-card-control div.btn {
+	width:8em;
+	height:1.5em;
+}
+
+@media (min-width:500px) {
+  ul.booking-card {
+   padding:0.1em;
+	margin:0;
+  }
+}
+div.booking-card-list ul.booking-card {
+	display:flex;
+	flex-flow:column nowrap;
+	padding:1em;
+	margin:0.5em;
+	background-color:#f8f9fa;
+}
+
+
+ul.booking-card li {
+	margin:0.2em;
 	
 }
-div.booking-card-control {
-	//position: relative;
-
+ul.booking-card div.card-item div{
+	display: flex;
+	flex-flow: row wrap;
 }
-div.operator-booking-form div.operator-buttons {
-	float:right;
+ul.booking-card div.card-item div em{
+	padding-right:0.5em;
+}
+ul.booking-card div.card-item div.card-buttons {
 	
+	flex-flow: row-reverse nowrap;
 }
-div.operator-booking-form span.created_time {
-	float:right;
-}div.operator-booking-form em {
-	color:gray;
-}
-div.operator-buttons  form input {
-	width:135px;
 
-
+ul.booking-card div.card-item div.card-buttons div {
+	justify-content:center;
 }
-div.booking-card-control div.operator-buttons div.col{
-	padding-right: 0px;
-	padding-left: 5px;
-	margin-bottom:16px;
+div.booking-card-list div.booking-error {
+	margin:0.5em;
+	padding:1em;
+	background-color:#f8f9fa;
 }

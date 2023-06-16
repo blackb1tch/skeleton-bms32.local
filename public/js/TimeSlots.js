@@ -3,10 +3,9 @@ import BookingForm from "./BookingForm";
 import DateConvert from "./date-convert";
 
 export default class TimeSlots {
-    #json
 
     constructor() {
-        let xhr = new XHR('GET', '', '/api/time-slots');
+        let xhr = new XHR('GET', '', '/api/not-booked-time');
         this.json_promise = xhr.getXhr();
     }
 
@@ -16,24 +15,25 @@ export default class TimeSlots {
             let json = (JSON.parse(result));
             let time_slots = json['time_slots'];
 
-            if (json['status'] === 'OK') {
+            if (json['response'] === 'OK') {
 
                 parent_this.makeHtml(time_slots);
 
                 // обработка выбранного тайм-слота
                 document.querySelector('.time-slots-control').onclick = function (event) {
                     let target = event.target;
+                    console.log(target);
                     if (target.tagName === 'BUTTON') {
 
 
                         let booking_form = document.querySelector('.booking-form');
-                        booking_form.style.display = 'block';
+                        booking_form.style.display = 'flex';
                         booking_form.scrollIntoView({
                             behavior: "smooth",
                             block: "end"
                         });
-                        new BookingForm(target.value);
-
+                        let booking = new BookingForm(target.value);
+                        booking.setTimeSlots(time_slots);
                     }
                 }
                 parent_this.generateButtons(time_slots);
@@ -65,8 +65,8 @@ export default class TimeSlots {
                     time_slot_button.className = 'btn btn-danger disabled ' + today_or_tomorrow;
                     time_slot_button.disabled = true;
                 }
-
-                document.querySelector('.' + today_or_tomorrow).append(time_slot_button);
+                // добавить каждую кнопку в div.today/tomorrow div.content
+                document.querySelector('.' + today_or_tomorrow).querySelector('.content').append(time_slot_button);
             }
         }
     }
@@ -75,25 +75,48 @@ export default class TimeSlots {
         let time_slots_parent_div = document.createElement('div');
         let clearfix = document.createElement('div');
         let time_slots_today = document.createElement('div');
+        let time_slots_today_header_div = document.createElement('div');
+        let time_slots_today_content_div = document.createElement('div');
         let time_slots_tomorrow = document.createElement('div');
+        let time_slots_tomorrow_header_div = document.createElement('div');
+        let time_slots_tomorrow_content_div = document.createElement('div');
         let today_h2 = document.createElement('h2');
         let tomorrow_h2 = document.createElement('h2');
         time_slots_parent_div.className = 'time-slots-control';
         clearfix.className = 'clearfix';
         time_slots_today.className = 'time-slots today';
+        time_slots_today_header_div.className = 'header';
+        time_slots_today_content_div.className = 'content';
         time_slots_tomorrow.className = 'time-slots tomorrow';
+        time_slots_tomorrow_header_div.className = 'header';
+        time_slots_tomorrow_content_div.className = 'content';
         document.querySelector('.repair-form').after(time_slots_parent_div);
 
         let date_convert = new DateConvert();
         date_convert.convertDate(time_slots['today']['09:00']['date']);
 
         today_h2.innerHTML = "Доступное время на сегодня (" +  date_convert.convertDate(time_slots['today']['09:00']['date']) + "):";
-        time_slots_today.append(today_h2);
+
+        // добавить div header в div time_slots_today
+        time_slots_today.append(time_slots_today_header_div);
+        // добавить div content в div time_slots_today
+        time_slots_today.append(time_slots_today_content_div);
+        // добавить заголовок в div header
+        time_slots_today_header_div.append(today_h2);
+
+        // добавить div с тайм-слотами на сегодня в родительский div
         time_slots_parent_div.append(time_slots_today);
-        time_slots_parent_div.append(clearfix);
+        // time_slots_parent_div.append(clearfix);
 
         tomorrow_h2.innerHTML = "Доступное время на завтра (" +  date_convert.convertDate(time_slots['tomorrow']['09:00']['date']) + "):";
-        time_slots_tomorrow.prepend(tomorrow_h2);
+        // добавить div header в div time_slots_tomorrow
+        time_slots_tomorrow.prepend(time_slots_tomorrow_header_div);
+        // добавить div content в div time_slots_tomorrow
+        time_slots_tomorrow.append(time_slots_tomorrow_content_div);
+        // добавить заголовок в div header
+        time_slots_tomorrow_header_div.append(tomorrow_h2);
+
+        // добавить div с тайм-слотами на завтра в родительский div
         time_slots_parent_div.append(time_slots_tomorrow);
     }
 }

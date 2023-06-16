@@ -1,0 +1,51 @@
+div.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: @margin-xl;
+
+  form {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: @padding-l;
+    background-color: @bg-color;
+
+    div.header {
+      margin-bottom: @margin;
+
+      div.value {
+        justify-content: center;
+        font-size: @font-size*1.5;
+      }
+    }
+
+    div.body {
+      div.login, div.password {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+
+      div.login > *, div.password > * {
+        margin-bottom: @margin-s;
+      }
+
+      input {
+        padding: @padding-input;
+        //margin: @margin-input;
+        height: @height-input;
+      }
+    }
+
+    div.submit {
+      input {
+        //background-color: #96a3ad;
+        padding: @padding-label-button;
+        height: @height-a-button;
+        width: @width-a-button;
+        padding-top: @padding-top-input-button;
+      }
+    }
+
+  }
+
+}

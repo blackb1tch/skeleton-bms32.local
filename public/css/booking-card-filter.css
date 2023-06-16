@@ -1,0 +1,71 @@
+.booking-filter-control {
+	
+}
+
+  .navbar-container .navbar {
+ //   align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    height: 100%;
+  }
+  .navbar-container .navbar-collapse {
+    align-items: flex-start;
+  }
+  .navbar-container .nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .navbar-container .navbar-nav {
+    flex-direction: column !important;
+  }
+
+div ul li  {
+	color:black;
+}
+form#filter-control .form_radio_btn input[type=radio] {
+	display:none;
+}
+form#filter-control .input-hidden label {
+	width:100px;
+	text-align:center;
+	
+}
+form#filter-control .input-hidden label.filter-label-btn-checked {
+	background-color: #007bff;
+	color: #f8f9fa;
+	
+}
+form#filter-control div.form_radio_btn{
+	width:80px;
+	display:inline;
+}
+
+/* Checked */
+form#filter-control .form_radio_btn input[type=radio]:checked + label {
+	background-color: #007bff;
+	color: #f8f9fa;
+}
+ 
+/* Hover */
+form#filter-control .form_radio_btn label:hover {
+	background-color: #007bff;
+	color: #f8f9fa;
+}
+ 
+/* Disabled */
+form#filter-control .form_radio_btn input[type=radio]:disabled + label {
+	background-color: #f8f9fa;
+	color: #007bff;
+}
+
+form#filter-control  span {
+	width: 200px;
+	display: inline-block;
+	margin-bottom:8px;
+}
+form#filter-control .filter-search-btn input {
+	width:100px;
+	float:right;
+}
+

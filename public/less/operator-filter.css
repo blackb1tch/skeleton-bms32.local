@@ -1,0 +1,45 @@
+div.filter {
+  /* Checked */
+  /* Hover */
+  /* Disabled */
+}
+div.filter ul.control-list li.control {
+  color: black;
+}
+div.filter form#filter-control .form_radio_btn input[type=radio] {
+  display: none;
+}
+div.filter form#filter-control .input-hidden label {
+  width: 100px;
+  text-align: center;
+}
+div.filter form#filter-control .input-hidden label.filter-label-btn-checked {
+  background-color: #007bff;
+  color: #f8f9fa;
+}
+div.filter form#filter-control div.form_radio_btn {
+  width: 80px;
+  display: inline;
+}
+div.filter form#filter-control .form_radio_btn input[type=radio]:checked + label {
+  background-color: #007bff;
+  color: #f8f9fa;
+}
+div.filter form#filter-control .form_radio_btn label:hover {
+  background-color: #007bff;
+  color: #f8f9fa;
+}
+div.filter form#filter-control .form_radio_btn input[type=radio]:disabled + label {
+  background-color: #f8f9fa;
+  color: #007bff;
+}
+div.filter form#filter-control span {
+  width: 200px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+div.filter form#filter-control .filter-search-btn input {
+  width: 100px;
+  float: right;
+}
+/*# sourceMappingURL=operator-filter.css.map */

@@ -1,6 +1,6 @@
 import CookieManager from "./cookie-manager";
 import baseForm from "./BaseForm";
-import CheckLength from "./CheckLength";
+import CheckLength from "./Validators/CheckLength";
 
 class SearchForm extends baseForm {
 
@@ -21,7 +21,7 @@ class SearchForm extends baseForm {
 
             //validation
             try{
-                self.removeErrors('.spare_part_error');
+                self.removeErrors('#spare_part_error');
                 checkLength.checkLength(input_search_form);
                 self.Search();
             } catch (error){

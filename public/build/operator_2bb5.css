@@ -1,0 +1,584 @@
+/*!******************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/less-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!../less/operator.less ***!
+  \******************************************************************************************************************************************/
+/* padding */
+/* margin */
+/* border */
+/* h1 fonts */
+/***********************operator-menu(filter)-START***********************/
+/*******button********/
+/* padding-label-button */
+/* margin-label-button*/
+/* border-label-button */
+/* width-label-button */
+/* height-label-button */
+/*******input*******/
+/* padding-input */
+/* margin-input*/
+/* width */
+/* height */
+/*******title*******/
+/*******icon*******/
+/*******icon-title*******/
+/*******icon-border*******/
+/*******icon-font*******/
+/*******icon-hint*******/
+/***********************operator-menu(filter)-END***********************/
+/***********************operator-booking-card-START***********************/
+/***********************operator-booking-card-END***********************/
+/*******colors*******/
+/*******fonts*******/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body {
+  font-family: 'Ubuntu', serif;
+}
+input.form-control {
+  margin-bottom: 0;
+}
+form ul {
+  margin-bottom: 0;
+  list-style-type: none;
+  padding: 0;
+}
+form ul li {
+  color: #dc3545;
+}
+.btn {
+  font-family: 'Ubuntu', serif, serif;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.5em 1em 0.25em 1em;
+  margin: 0.25em 0.25em 0.25em 0.25em;
+  width: 4.5em;
+  height: 1.3em;
+  border: 0.0625em solid black;
+  border-radius: 0.25em;
+}
+.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn-light {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+.btn-outline-secondary {
+  color: #6c757d;
+  background-color: transparent;
+  background-image: none;
+  border-color: #6c757d;
+}
+.btn-outline-primary {
+  color: #007bff;
+  border-color: #007bff;
+}
+.btn-outline-primary:hover,
+.btn-danger:hover,
+.btn-success:hover {
+  opacity: 0.8;
+}
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+.btn-outline-success:hover {
+  color: #fff;
+  background-color: #28a745;
+}
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #6c757d;
+}
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #dc3545;
+}
+.alert {
+  position: relative;
+  padding: 0.75em 1.25em;
+  margin-bottom: 1em;
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+}
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+@media (min-width: 500px) {
+  ul.booking-card {
+    padding: 0.1em;
+    margin: 0;
+  }
+}
+div.booking-card-list {
+  font-family: 'Ubuntu', serif;
+  display: inline-block;
+  width: 55%;
+  margin: 2em;
+}
+@media (max-width: 768px) {
+  div.booking-card-list {
+    width: 100%;
+    margin: 0.5em;
+  }
+}
+div.booking-card-list div.booking-card-control {
+  display: none;
+}
+div.booking-card-list div.booking-card-control ul.booking-card {
+  list-style-type: none;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 1em 2em;
+  margin: 0.5em;
+  background-color: #f8f9fa;
+}
+div.booking-card-list div.booking-card-control ul.booking-card form.form-disabled input {
+  display: none;
+}
+div.booking-card-list div.booking-card-control ul.booking-card form.form-disabled li div.value {
+  display: flex;
+}
+div.booking-card-list div.booking-card-control ul.booking-card form.form-disabled li.card-buttons a.booking-edit {
+  display: block;
+}
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled input.value {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  font-family: 'Ubuntu', serif;
+  background-color: #f8f9fa;
+}
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-name div.value,
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-phone div.value,
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-email div.value,
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-message div.value,
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-time div.value {
+  display: none;
+}
+div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-buttons a.booking-edit {
+  display: none;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li {
+  margin: 0.25em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.card-message {
+  padding-top: 0.125em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.operator-comment {
+  flex-grow: 1;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.operator-comment textarea {
+  width: 100%;
+  height: 6em;
+  font-size: 130%;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  padding-top: 0;
+  margin-top: 0;
+  border: 0;
+  border-radius: 0.25em;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  background-color: #fff;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.icon {
+  display: none;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div {
+  display: flex;
+  flex-flow: row wrap;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.label {
+  padding-right: 0.5em;
+  color: #6c757d;
+  font-style: italic;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.are-you-sure {
+  display: none;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.are-you-sure div.label {
+  justify-content: flex-end;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 150%;
+  color: #222;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.are-you-sure div.value {
+  justify-content: flex-end;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.are-you-sure div.value a {
+  text-align: center;
+  text-decoration: none;
+  width: 7em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons {
+  flex-flow: row-reverse nowrap;
+  display: flex;
+  justify-content: space-between;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div {
+  justify-content: center;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div a {
+  text-align: center;
+  text-decoration: none;
+  width: 7em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div input {
+  height: 2.2em;
+  width: 13em;
+  padding-top: 0.3em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card-declined {
+  background-color: #f8d7da;
+}
+div.booking-card-list div.booking-card-control ul.booking-card-declined li.card-label div.value {
+  color: #721c24;
+  font-size: 150%;
+  justify-content: center;
+}
+div.booking-card-list div.booking-card-control ul.booking-card-approved {
+  background-color: #d4edda;
+}
+div.booking-card-list div.booking-card-control ul.booking-card-approved li.card-label div.value {
+  color: #155724;
+  font-size: 150%;
+  justify-content: center;
+}
+div.booking-card-list div.booking-card-control ul.booking-card-declined li.card-buttons a.booking-approve,
+div.booking-card-list div.booking-card-control ul.booking-card-approved li.card-buttons a.booking-approve,
+div.booking-card-list div.booking-card-control ul.booking-card-declined li.card-buttons a.booking-decline,
+div.booking-card-list div.booking-card-control ul.booking-card-approved li.card-buttons a.booking-decline {
+  display: none;
+}
+div.booking-card-list div.booking-card-control:nth-child(2) ul.booking-card {
+  margin-top: 0;
+}
+div.booking-card-list div.booking-error {
+  margin: 0.5em;
+  padding: 1em;
+  background-color: #f8f9fa;
+}
+div.filter {
+  width: 16em;
+  padding: 1em;
+  margin: 2em;
+  background-color: #f8f9fa;
+  display: inline-block;
+}
+@media (max-width: 768px) {
+  div.filter {
+    display: none;
+  }
+}
+div.filter div.filter-header {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+div.filter div.filter-header h1 {
+  font-size: 1.5em;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+div.filter ul.control-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+div.filter ul.control-list li.control div.control {
+  display: block;
+  border-bottom: 0.0625em solid #333;
+  clear: both;
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+}
+div.filter ul.control-list li.control div.control div.header {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div.hint {
+  font-size: 90%;
+  display: none;
+  clear: both;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div.icon {
+  width: 0.875em;
+  height: 0.875em;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div.icon div.icon-title {
+  position: absolute;
+  width: 0.625em;
+  height: 0.625em;
+  margin-top: 0.1em;
+  margin-left: 0.9em;
+  font-size: 0.625em;
+  font-weight: bold;
+  font-family: 'Bookman Old Style', serif;
+  opacity: 0.8;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div.icon div.icon-border {
+  position: absolute;
+  width: 0.75em;
+  height: 0.75em;
+  opacity: 0.8;
+  border: 0.0625em solid #333333;
+  border-radius: 0.625em;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div.icon:hover ~ div.hint {
+  display: block;
+  border: 0.0625em solid #007bff;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div.hint-icon {
+  border: 0.0625em solid #333333;
+  border-radius: 1em;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div:first-child {
+  float: left;
+  margin-bottom: 0.5em;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  width: 13em;
+}
+div.filter ul.control-list li.control div.control div.header div.control-label div div:nth-child(2) {
+  float: right;
+}
+div.filter ul.control-list li.control div.control div#search-by-message div.header div.control-label div:first-child div:first-child {
+  width: 13.875em;
+}
+div.filter ul.control-list li.control div.control div.content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  clear: both;
+  margin-bottom: 0.5em;
+}
+div.filter ul.control-list li.control div.control div.content div.error-msg {
+  color: #dc3545;
+  margin: 0.25em;
+  width: 13.875em;
+}
+div.filter ul.control-list li.control div.control div.content div.form_radio_btn label:hover {
+  color: #f8f9fa;
+  background-color: #007bff;
+}
+div.filter ul.control-list li.control div.control div.content div.form_radio_btn input {
+  display: none;
+}
+div.filter ul.control-list li.control div.control div.content div.form_radio_btn input[type="radio"]:checked + label {
+  color: #f8f9fa;
+  background-color: #007bff;
+}
+div.filter ul.control-list li.control div.control div.content div#reset-btn label {
+  width: 13.375em;
+  padding: 0.25em 0.125em 0.25em 0.125em;
+  margin: 0.25em 0.25em 0.25em 0.25em;
+}
+div.filter ul.control-list li.control div.control div.content input {
+  border: 0.0625em solid #007bff;
+  border-radius: 0.25em;
+  height: 1em;
+  text-align: center;
+  margin: 0.25em 0.25em 0.25em 0.25em;
+  padding: 0.25em 0.125em 0.25em 0.125em;
+}
+div.filter ul.control-list li.control div.control div.content div#main-search input#main-search {
+  width: 13.375em;
+  padding: 0.25em 0.125em 0.25em 0.125em;
+  margin: 0.25em 0.25em 0.25em 0.25em;
+}
+div.filter ul.control-list li.control div.control div#date-search div.content div.search-input {
+  width: 13.875em;
+  display: flex;
+}
+div.filter ul.control-list li.control div.control div#date-search div.content div.search-input input {
+  width: 4.5em;
+}
+div.filter ul.control-list li.control div.control div#date-search div.content div.search-input label {
+  padding-top: 0.625em;
+}
+div.filter ul.control-list li.control div.control div#date-search div.content div.form_radio_btn label {
+  height: 2.5em;
+}
+div.filter ul.control-list li.control div.control div.error-message {
+  display: none;
+}
+div.filter ul.control-list li:last-child div.control {
+  padding: 0;
+  margin: 0;
+  border-bottom: none;
+}
+div.filter ul.control-list li:last-child div.control div.header {
+  margin: 0;
+}
+div.filter ul.control-list li:last-child div.control div.content {
+  margin: 0;
+}
+div.logout-menu {
+  background-color: #f8f9fa;
+  margin: 2em;
+  padding: 1em;
+}
+div.logout-menu a {
+  text-decoration: none;
+}
+div.container div.control-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+

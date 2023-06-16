@@ -1,0 +1,58 @@
+@media (max-width: 768px) {
+  div.booking-card-list {
+    width: 100%;
+    margin: 0.5em;
+  }
+}
+@media (min-width: 500px) {
+  ul.booking-card {
+    padding: 0.1em;
+    margin: 0;
+  }
+}
+div.booking-card-list {
+  font-family: 'Ubuntu', 'Nunito', serif;
+  display: inline-block;
+  width: 75%;
+  margin: 2em 2em 0;
+}
+div.booking-card-list div.booking-card-control {
+  display: none;
+}
+div.booking-card-list div.booking-card-control ul.booking-card {
+  list-style-type: none;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 1em;
+  margin: 0.5em;
+  background-color: #f8f9fa;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li {
+  margin: 0.2em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.card-item div {
+  display: flex;
+  flex-flow: row wrap;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.card-item div em {
+  padding-right: 0.5em;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.card-item div.card-buttons {
+  flex-flow: row-reverse nowrap;
+}
+div.booking-card-list div.booking-card-control ul.booking-card li div.card-item div.card-buttons div {
+  justify-content: center;
+}
+div.booking-card-list div.booking-card-control em {
+  color: #6c757d;
+}
+div.booking-card-list div.booking-card-control div.btn {
+  width: 8em;
+  height: 1.5em;
+}
+div.booking-card-list div.booking-error {
+  margin: 0.5em;
+  padding: 1em;
+  background-color: #f8f9fa;
+}
+/*# sourceMappingURL=operator-booking-card.css.map */

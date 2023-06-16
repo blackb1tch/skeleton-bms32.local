@@ -1,0 +1,335 @@
+/* padding */
+/* margin */
+/* border */
+/* h1 fonts */
+/***********************operator-menu(filter)-START***********************/
+/*******button********/
+/* padding-label-button */
+/* margin-label-button*/
+/* border-label-button */
+/* width-label-button */
+/* height-label-button */
+/*******input*******/
+/* padding-input */
+/* margin-input*/
+/* width */
+/* height */
+/*******title*******/
+/*******icon*******/
+/*******icon-title*******/
+/*******icon-border*******/
+/*******icon-font*******/
+/*******icon-hint*******/
+/***********************operator-menu(filter)-END***********************/
+/***********************operator-booking-card-START***********************/
+/***********************operator-booking-card-END***********************/
+/*******colors*******/
+/*******fonts*******/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body {
+  font-family: 'Ubuntu', serif;
+}
+input.form-control {
+  margin-bottom: 0;
+}
+form ul {
+  margin-bottom: 0;
+  list-style-type: none;
+  padding: 0;
+}
+form ul li {
+  color: #dc3545;
+}
+.btn {
+  font-family: 'Ubuntu', serif, serif;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.5em 1em 0.25em 1em;
+  margin: 0.25em 0.25em 0.25em 0.25em;
+  width: 4.5em;
+  height: 1.3em;
+  border: 0.0625em solid black;
+  border-radius: 0.25em;
+}
+.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn-light {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+.btn-outline-secondary {
+  color: #6c757d;
+  background-color: transparent;
+  background-image: none;
+  border-color: #6c757d;
+}
+.btn-outline-primary {
+  color: #007bff;
+  border-color: #007bff;
+}
+.btn-outline-primary:hover,
+.btn-danger:hover,
+.btn-success:hover {
+  opacity: 0.8;
+}
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+.btn-outline-success:hover {
+  color: #fff;
+  background-color: #28a745;
+}
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #6c757d;
+}
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #dc3545;
+}
+.alert {
+  position: relative;
+  padding: 0.75em 1.25em;
+  margin-bottom: 1em;
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+}
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+div.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4em;
+}
+div.login-form form {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 2em;
+  background-color: #f8f9fa;
+}
+div.login-form form div.header {
+  margin-bottom: 1em;
+}
+div.login-form form div.header div.value {
+  justify-content: center;
+  font-size: 150%;
+}
+div.login-form form div.body div.login,
+div.login-form form div.body div.password {
+  display: flex;
+  flex-flow: column nowrap;
+}
+div.login-form form div.body div.login > *,
+div.login-form form div.body div.password > * {
+  margin-bottom: 0.5em;
+}
+div.login-form form div.body input {
+  padding: 0.25em 0.125em 0.25em 0.125em;
+  height: 1em;
+}
+div.login-form form div.submit input {
+  padding: 0.5em 1em 0.25em 1em;
+  height: 2em;
+  width: 7em;
+  padding-top: 0.3em;
+}
+div.navbar-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+.container .main-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.container .main-container input[type="text"],
+.container .main-container textarea {
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  width: 99%;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  margin: 0.2em 0.2em 0.2em 0;
+}
+.container .main-container .btn {
+  margin: 0.2em 0.2em 0.2em 0;
+  width: 7em;
+  height: 2em;
+}
+.container .main-container > div {
+  width: 70%;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 0.5em;
+  padding: 1em;
+}
+.container .main-container .time-slots-control .time-slots {
+  display: flex;
+  flex-flow: row wrap;
+}
+.container .main-container .time-slots-control .time-slots .header h2 {
+  flex-grow: 2;
+}
+.container .main-container .time-slots-control .time-slots .content {
+  display: flex;
+  flex-flow: row wrap;
+}
+.container .main-container .booking-form {
+  display: none;
+}
+/*# sourceMappingURL=main-landing.css.map */

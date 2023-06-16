@@ -1,6 +1,6 @@
 import TimeSlots from "./TimeSlots";
 import baseForm from "./BaseForm";
-import CheckLength from "./CheckLength";
+import CheckLength from "./Validators/CheckLength";
 
 class RepairForm extends baseForm {
     constructor() {
@@ -25,11 +25,12 @@ class RepairForm extends baseForm {
                 checkLength.checkLength(input_repair_form);
 
                 // удалить прошлый ответ формы
-                self.removeErrors('.repair_error');
+                self.removeErrors('#repair_error');
+                self.removeErrors('.repair_response');
 
                 self.removeErrors('.time-slots-control');
                 self.removeErrors('.booking-success');
-                self.removeErrors('.booking-error');
+                self.removeErrors('#booking-error');
 
                 self.RepairMessage();
 

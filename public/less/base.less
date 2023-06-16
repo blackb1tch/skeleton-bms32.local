@@ -1,0 +1,171 @@
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  //font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  font-family: @main-font;
+}
+
+input.form-control {
+  margin-bottom: 0;
+
+}
+
+
+form {
+  ul {
+    margin-bottom: 0;
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      color: @color-red-danger;
+    }
+  }
+}
+
+
+.btn {
+  font-family: @main-font, serif;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+
+  padding: @padding-label-button;
+  margin:@margin-label-button;
+  width: @width-label-button;
+  height: @height-label-button;
+  border: @border-label-button-size @border-label-button-type black;
+  border-radius: @border-radius;
+}
+
+.btn-success {
+  color: @color-white;
+  background-color: @color-green-success;
+  border-color: @color-green-success;
+}
+
+.btn-danger {
+  color: @color-white;
+  background-color: @color-red-danger;
+  border-color: @color-red-danger;
+}
+
+.btn-primary {
+  color: @color-white;
+  background-color:@color-blue-primary;
+  border-color: @color-blue-primary;
+}
+
+.btn-light {
+  color: @color-light;
+  background-color:@bg-color;
+  border-color: @bg-color;
+}
+
+.btn-outline-secondary {
+  color: @color-outline-secondary;
+  background-color: transparent;
+  background-image: none;
+  border-color: @color-outline-secondary;
+}
+
+.btn-outline-primary {
+  color: @color-blue-primary;
+  border-color: @color-blue-primary;
+}
+
+.btn-outline-primary:hover, .btn-danger:hover, .btn-success:hover {
+  opacity: 0.8;
+}
+
+.btn-outline-success {
+  color: @color-green-success;
+  border-color: @color-green-success;
+}
+
+.btn-outline-success:hover {
+  color:@color-white;
+  background-color: @color-green-success;
+}
+
+.btn-outline-secondary:hover {
+  color: @color-white;
+  background-color: @color-outline-secondary;
+}
+
+.btn-outline-danger {
+  color:@color-red-danger;
+
+  // background-color: #dc3545;
+  border-color:@color-red-danger;
+}
+
+.btn-outline-danger:hover {
+  color: @color-white;
+  background-color: @color-red-danger;
+
+}
+
+.alert {
+  position: relative;
+  padding: 0.75em 1.25em;
+  margin-bottom: 1em;
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+
+}
+
+.alert-danger {
+  color: @alert-danger-color;
+  background-color: @alert-danger-background-color;
+  border-color: @alert-danger-border-color;
+}
+
+.alert-success {
+  color: @alert-success-color;
+  background-color: @alert-success-background-color;
+  border-color: @alert-success-border-color;
+}

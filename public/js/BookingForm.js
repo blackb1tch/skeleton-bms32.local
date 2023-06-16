@@ -1,10 +1,12 @@
-import CheckLength from "./CheckLength";
+import CheckLength from "./Validators/CheckLength";
 import XHR from "./xhr";
 import DateConvert from "./date-convert";
 import baseForm from "./BaseForm";
+import TimeSlotValidate from "./Validators/TimeSlotValidate";
 
 export default class BookingForm extends baseForm {
     form_selector = '#booking-form';
+    time_slots;
     input_validation_rules =
         {
             'input_name': {
@@ -50,7 +52,9 @@ export default class BookingForm extends baseForm {
         });
 
     }
-
+    setTimeSlots(time_slots){
+        this.time_slots = time_slots;
+    }
 
     setTimeSlotDataToForm(date) {
         let disabled_booking_time_input = document.querySelector('.disabled_booking_time')
@@ -68,23 +72,9 @@ export default class BookingForm extends baseForm {
 
     renderUserError(message) {
         // удалить существующий блок с ошибкой
-        this.removeErrors('.booking-error');
+        // this.removeErrors('.booking-error');
 
-        let error_form = document.createElement('div');
-        let error_form_message = document.createElement('div');
-        let h2 = document.createElement('h2');
-        let span = document.createElement('span');
-        error_form.className = 'booking-error';
-        h2.innerHTML = 'Ошибка!';
-        span.innerHTML = message;
-        error_form_message.className = "alert alert-danger";
-        error_form_message.role = "alert";
-
-        let booking_form = document.querySelector('.booking-form');
-        booking_form.append(error_form);
-        error_form.append(h2);
-        error_form_message.append(span);
-        error_form.append(error_form_message);
+        super.generateBlockError(message, document.querySelector('.booking-form'));
     }
 
     /**
@@ -95,10 +85,19 @@ export default class BookingForm extends baseForm {
         let valid = true;
         for (let input_name in this.input_validation_rules) {
 
-            if (this.fieldValidate(input_name) !== true){
+            if (this.fieldValidate(input_name) !== true) {
                 valid = false;
             }
         }
+        try {
+            this.removeErrors('.booking-error');
+            let timeSlotValidate = new TimeSlotValidate(this.time_slots);
+            timeSlotValidate.checkTimeSlot(document.querySelector('#input_hidden_time').value)
+        }  catch (Error) {
+            valid = false;
+            this.renderUserError(Error);
+        }
+
         return valid;
     }
 
@@ -107,10 +106,10 @@ export default class BookingForm extends baseForm {
 
         let input = this.input_validation_rules[input_name];
         for (let validator in input) {
-            this.removeErrors( '.'+ field.id +  '_error');
+            this.removeErrors('#' + field.id + '_error');
             //  перебор указанных валидаторов поля
             try {
-                if(input[validator].checkLength(field)){
+                if (input[validator].checkLength(field)) {
                     return true;
                 }
 
@@ -149,8 +148,8 @@ export default class BookingForm extends baseForm {
                 console.log('отправка на сервер');
 
                 let json_response = (JSON.parse(result));
-                let status = json_response['status'];
-                if (status === 'OK') {
+                let response = json_response['response'];
+                if (response === 'OK') {
                     console.log('записалось в базу');
                     // заявка принята
 
@@ -170,7 +169,7 @@ export default class BookingForm extends baseForm {
                     self.clearForm('#repair-form');
                     self.renderSuccessMessage(document.querySelector('.hidden_booking_time').value);
                 }
-                if (status === 'error' || status === 'exception') {
+                if (response === 'error' || response === 'exception') {
                     // вывод ошибки
                     self.renderUserError(json_response['message']);
                     document.querySelector('.booking-error').scrollIntoView({

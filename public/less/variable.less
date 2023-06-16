@@ -1,0 +1,186 @@
+@main-size: 1em;
+@1px: @main-size/16;
+
+@main-width: 70%;
+@opacity: 0.8;
+@font-size: 100%;
+
+/* padding */
+@padding: @main-size;
+
+@padding-l: @padding*2;
+@padding-xl: @padding-l*2;
+@padding-s: @padding/2;
+@padding-xs: @padding-s/2;
+
+@padding-zero: 0;
+
+/* margin */
+@margin: @main-size;
+
+@margin-l: @margin*2;
+@margin-xl: @margin-l*2;
+@margin-s: @margin/2;
+@margin-xs: @margin-s/2;
+
+@margin-zero: 0;
+
+/* border */
+@border-size: @1px;
+@border-type: solid;
+@border-radius: @1px*4;
+
+/* h1 fonts */
+@h1-font-size: @main-size*1.5;
+@h1-text-align: center;
+@h1-font-weight: normal;
+@h1-text-transform: uppercase;
+
+
+/***********************operator-menu(filter)-START***********************/
+
+@width-filter: @main-size*16;
+
+/*******button********/
+
+/* padding-label-button */
+@padding-label-button-top: @padding-s;
+@padding-label-button-left: @padding;
+@padding-label-button-bottom: @padding-xs;
+@padding-label-button-right: @padding;
+
+@padding-label-button: @padding-label-button-top @padding-label-button-left @padding-label-button-bottom @padding-label-button-right;
+
+/* margin-label-button*/
+@margin-label-button-top: @margin-xs;
+@margin-label-button-left: @margin-xs;
+@margin-label-button-bottom: @margin-xs;
+@margin-label-button-right: @margin-xs;
+
+@margin-label-button: @margin-label-button-top @margin-label-button-left @margin-label-button-bottom @margin-label-button-right;
+
+/* border-label-button */
+@border-label-button-size: @border-size;
+@border-label-button-type: @border-type;
+
+/* width-label-button */
+@width-label-button: @main-size*4.5;
+
+/* height-label-button */
+@height-label-button: @main-size*1.3;
+@height-label-button-l: @main-size*2.5;
+
+
+/*******input*******/
+
+/* padding-input */
+@padding-input-top: @padding-xs;
+@padding-input-left: @padding-xs/2;
+@padding-input-bottom: @padding-xs;
+@padding-input-right: @padding-xs/2;
+
+@padding-input: @padding-input-top @padding-input-left @padding-input-bottom @padding-input-right;
+
+/* margin-input*/
+@margin-input-top: @margin-xs;
+@margin-input-left: @margin-xs;
+@margin-input-bottom: @margin-xs;
+@margin-input-right: @margin-xs;
+
+@margin-input: @margin-input-top @margin-input-left @margin-input-bottom @margin-input-right;
+
+/* width */
+@width-input: @width-label-button * 2
+ + @border-label-button-size * 2
+  + @padding-label-button-left * 2
+   + @padding-label-button-right * 2
+    + @margin-label-button-left
+     + @margin-label-button-right
+      - @padding-input-left
+       - @padding-input-right;
+
+@width-date-search-input-block: @width-input + @margin-input-left;
+
+@width-date-search-input: @main-size*4.5;
+/* height */
+
+@height-input: @main-size;
+@height-input-l: @main-size*1.3;
+
+/*******title*******/
+@width-title: @width-input + @margin-input-left + @margin-input-right;
+@width-title-with-icon: @width-title - @width-icon;
+
+@padding-top-search-input-title: @main-size*0.625;
+
+/*******icon*******/
+
+@width-icon: @1px*14;
+@height-icon: @1px*14;
+
+/*******icon-title*******/
+
+@width-icon-title: @1px*10;
+@height-icon-title: @1px*10;
+
+@margin-top-icon-title: @main-size*0.1;
+@margin-left-icon-title: @main-size*0.9;
+
+/*******icon-border*******/
+@width-icon-border: @main-size*0.75;
+@height-icon-border: @main-size*0.75;
+
+@border-radius-icon-border: @1px*10;
+
+/*******icon-font*******/
+@font-size-icon: 90%;
+@font-size-icon-title: @1px*10;
+@font-weight-icon-title: bold;
+@font-family-icon-title: 'Bookman Old Style', serif;
+
+/*******icon-hint*******/
+@border-radius-hint: @main-size;
+
+/***********************operator-menu(filter)-END***********************/
+
+/***********************operator-booking-card-START***********************/
+
+@height-textarea: @main-size*6;
+@height-input-button: @main-size*2.2;
+@height-a-button:@main-size*2;
+
+@font-size-textarea: @font-size*1.3;
+
+@padding-top-for-textarea: @1px*2;
+@padding-top-input-button: @padding*0.3;
+
+@width-a-button: @main-size*7;
+@width-input-button: @main-size*13;
+/***********************operator-booking-card-END***********************/
+
+/*******colors*******/
+
+@color-green-success: #28a745;
+@color-red-danger: rgb(220, 53, 69);
+@color-blue-primary: #007bff;
+@bg-color: #f8f9fa;
+@color-white: #fff;
+@color-light:#212529;
+@color-border-bottom: #333;
+@color-border-icon: #333333;
+@color-outline-secondary: #6c757d;
+@color-black:#222;
+
+@alert-danger-color: #721c24;
+@alert-danger-background-color:#f8d7da;
+@alert-danger-border-color:#f5c6cb;
+
+@alert-success-color: #155724;
+@alert-success-background-color:#d4edda;
+@alert-success-border-color:#c3e6cb;
+
+/*******fonts*******/
+@main-font: @font-ubuntu;
+@font-arial: 'Arial', serif;
+@font-ubuntu: 'Ubuntu', serif;
+@font-nunito: 'Nunito', serif;
