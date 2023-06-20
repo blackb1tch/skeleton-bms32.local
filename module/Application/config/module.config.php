@@ -75,34 +75,13 @@ return [
                     ],
                 ],
             ],
-            'panel' => [
+            'menu' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/panel/booking',
+                    'route' => '/menu/booking',
                     'defaults' => [
                         'controller' => Controller\OperatorController::class,
                         'action' => 'index',
-                    ],
-                ],
-            ],
-
-            'doctrine' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route' => '/doctrine',
-                    'defaults' => [
-                        'controller' => Controller\DoctrineController::class,
-                        'action' => 'doctrine',
-                    ],
-                ],
-            ],
-            'booking-create' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route' => '/booking-create',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'bookingCreate',
                     ],
                 ],
             ],
@@ -177,4 +156,5 @@ return [
             'ssl' => 'ssl'
         ],
     ],
+    'version' => '03042023' // @TODO: добавлять в качестве параметра в css, js файл
 ];

@@ -23,17 +23,10 @@ $repairForm = $this->repairForm;
 $form_response = $this->form_response;
 $booking_time_buttons_is_visible = $this->booking_time_buttons_is_visible;
 $booking_form_is_visible = $this->booking_form_is_visible;
-$this->headLink()->prependStylesheet('/css/time-slots.css');
+//$this->headLink()->prependStylesheet('/css/time-slots.css');
 ?>
 
-<div class="container bg-light mt-5 ">
-    <div class="row">
-
-        <script type="module" src="/js/RepairForm.js"></script>
-        <script type="module" src="/js/SearchForm.js"></script>
-        <script type="module" src="/js/TimeSlots.js"></script>
-
-
+<div class="main-container">
 
         <?php
         // выводит форму поиска запчастей по каталогу
@@ -87,7 +80,6 @@ $this->headLink()->prependStylesheet('/css/time-slots.css');
 //            }
             ?>
 
-    </div>
 </div>
 
 

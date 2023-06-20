@@ -1,111 +1,73 @@
 <?php
-$this->headLink()->prependStylesheet('/css/booking-card.css');
+//$this->headLink()->prependStylesheet('/css/booking-card.css');
 $statusFormConfirm = $this->statusFormConfirm;
 $statusFormReject = $this->statusFormReject;
 $booking_card = $this->booking_card;
 ?>
-
 <div class="booking-card-control">
-    <div class="operator-booking-form">
-        <div class="container bg-light ">
-            <div class="row"><!-- div class='col-md-3'><div class='card__main'></div></div-->
-                <div class="col-8">
-                    <div class="form-group">
-                    <span>
-                        <em>
-                            Заявка на:
-                        </em>
-                        <b>
-                            <?php echo date("H:i d.m.Y", strtotime(/*$booking->getTime()*/ $booking_card['time'])) ?>
-                        </b>
-                    </span>
-                    </div>
+    <ul class="booking-card">
+        <form class="form-disabled">
+            <li class="card-label">
+                <div class="value"></div>
+            </li>
+            <li class="card-created_time">
+                <div class="label">Создана:</div>
+                <div class="value"></div>
+            </li>
+            <li class="card-name">
+                <div class="label">ФИО:</div>
+                <div class="value"></div>
+                <input type="text" name="card-name" class="value">
+            </li>
+            <li class="card-phone">
+                <div class="label">Телефон:</div>
+                <div class="value"></div>
+                <input type="text" name="card-phone" class="value">
+            </li>
+            <li class="card-email">
+                <div class="label">E-mail:</div>
+                <div class="value"></div>
+                <input type="text" name="card-email" class="value">
+            </li>
+            <li class="card-message">
+                <div class="label">Сообщение:</div>
+                <div class="value"></div>
+                <input type="text" name="card-message" class="value">
+            </li>
+            <li class="card-time">
+                <div class="label">Заявка на:</div>
+                <div class="value"></div>
+                <input type="text" name="card-time" class="value">
+            </li>
+
+            <li class="are-you-sure">
+                <div class="label">Вы уверены?</div>
+                <div class="value">
+                    <a class="btn btn-outline-secondary cancel">Отмена</a>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                     <span class="created_time">
-                        <em>
-                            Создана:
-                        </em>
-                        <?php echo date("H:i d.m.Y", strtotime($booking_card['created_time'])) ?>
-                    </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <em>
-                            ФИО:
-                        </em>
-                        <span><?php echo /* $booking->getName() */
-                            $booking_card['name'] ?>
-                    </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <em>
-                            Телефон:
-                        </em>
-                        <span><?php echo /* $booking->getPhone() */
-                            $booking_card['phone'] ?>
-                    </span>
-                        <em>
-                            E-mail:
-                        </em>
-                        <span><?php echo /* $booking->getPhone() */
-                            $booking_card['email'] ?>
-                    </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-end">
-                <div class="col-8">
-                    <em>
-                        Сообщение:
-                    </em>
-                    <div class="form-group">
-                    <span><?php echo /* $booking->getMessage() */
-                        $booking_card['message'] ?>
-                    </span>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <div class="operator-buttons">
-
-                            <div class="row">
-                                <div class="col">
-
-
-                                    <?= $this->form()->openTag($statusFormConfirm); ?>
-
-                                    <?= $this->formElement($statusFormConfirm->get('confirm')); ?>
-                                    <?= $this->formElement($statusFormConfirm->get('booking_id')); ?>
-                                    <?= $this->formElement($statusFormConfirm->get('is_sure')); ?>
-                                    <?= $this->formElement($statusFormConfirm->get('url')); ?>
-
-                                    <?= $this->form()->closeTag(); ?>
-                                </div>
-                                <div class="col">
-
-                                    <?= $this->form()->openTag($statusFormReject); ?>
-
-                                    <?= $this->formElement($statusFormReject->get('reject')); ?>
-                                    <?= $this->formElement($statusFormReject->get('booking_id')); ?>
-                                    <?= $this->formElement($statusFormReject->get('is_sure')); ?>
-                                    <?= $this->formElement($statusFormReject->get('url')); ?>
-
-                                    <?= $this->form()->closeTag(); ?>
-                                </div>
+            </li>
+            <li class="card-buttons">
+                <div>
+                    <a class="btn btn-outline-success booking-approve" onclick="return false">Подтвердить</a>
+                    <a class="btn btn-outline-danger booking-decline" onclick="return false">Отклонить</a>
+                    <a class="btn btn-outline-secondary booking-edit">Редактировать
+                        <div class="icon">
+                            <div class="icon-title">
+                                <img src="/img/icons/edit-icon.png" alt="edit-icon"/>
+                            </div>
+                            <div class="hint">
+                                Оставить комментарий
                             </div>
                         </div>
-                    </div>
+                    </a>
+                    <input type="submit" class="btn btn-outline-secondary booking-edit-complete"
+                           value="Сохранить изменения">
                 </div>
-            </div>
-        </div>
-    </div>
+                <div class="anchor"><a></a></div>
+            </li>
+            </li>
+        </form>
+    </ul>
 </div>
+
+

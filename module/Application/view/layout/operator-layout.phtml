@@ -4,6 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu|Nunito">
 
         <?= $this->headTitle('БрянскМАЗсервис')->setSeparator(' - ')->setAutoEscape(false) ?>
 
@@ -13,16 +15,25 @@
         ?>
 
         <!-- Le styles -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-            ->prependStylesheet($this->basePath('css/style.css'))
-            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        <?php
+        $operator_css = glob("public/build/operator_*.css");
+        $operator_css = explode("/", $operator_css[0])[2];
         ?>
 
-        <!-- Scripts -->
-        <?= $this->inlineScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
+        <?=
+
+        $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+
+            ->prependStylesheet($this->basePath('build/' . $operator_css))
+        //            ->prependStylesheet($this->basePath('css/base.css'))
+        //            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
         ?>
+
+        <?php
+        $operator_js = glob("public/build/operator_*.js");
+        $operator_js = explode("/", $operator_js[0])[2];
+        ?>
+
 
     </head>
     <body>
@@ -36,15 +47,16 @@
         <?= $this->content ?>
         <hr>
         <footer>
-            <p>&copy; 2005 - <?= date('Y') ?> by БрянскМАЗсервис. All rights reserved.</p>
+            <p>&copy; 2005 - <?= date('Y') ?> БрянскМАЗсервис. Все права защищены.</p>
         </footer>
     </div>
     <?= $this->inlineScript() ?>
     </body>
+    <!-- Scripts -->
+    <?= $this->inlineScript()
+        ->prependFile($this->basePath('build/' . $operator_js))
+        ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
+    //            ->prependFile($this->basePath('js/bootstrap.min.js'))
+    ?>
     </html>
 
-<?php
-//$this->placeholder('content')->captureEnd();
-//echo $this->partial('layout/layout',
-//    ['content'=>$this->placeholder('content')]);
-?>

@@ -71,24 +71,38 @@ class BookingManager
      * @return array
      * @throws \Exception
      */
-    public function getPage($page_limit, $page_number, $status): array
+//    public function getPage($page_limit, $page_number, $status): array
+    public function getPage($params): array
     {
+
+
         try {
+            $filtered_params = $this->checkParams($params);
 
+            $rows = $this->entityManager->getRepository(Booking::class)->countRowsByFilterParams($filtered_params)[0]['count_pages'];
             // подсчет количества страниц
-            $count_pages = $this->countPages($status, $page_limit);
+            $count_pages = $this->countPages($params['status'], $params['limit'], $rows);
 
-            if ($page_number > $count_pages) {
-                $page_number = $count_pages;
+            if ($params['page'] > $count_pages) {
+                $params['page'] = $count_pages;
             }
-            if ($page_number < 1) {
-                $page_number = 1;
+            if ($params['page'] < 1) {
+                $params['page'] = 1;
             }
-            $offset = $page_limit;
-            $limit = $page_number * $page_limit - $page_limit;
+            $filtered_params['offset'] = $params['limit'];
+            $filtered_params['limit'] = $params['page'] * $params['limit'] - $params['limit'];
+
+            $page = $this->entityManager->getRepository(Booking::class)->getPageByFilterParams($filtered_params);
+
+            // форматировать время из американского формата в российский
+            foreach ($page as $key => $booking) {
+                $page[$key]['time'] = date('d.m.y H:i:s ', strtotime($booking['time']));
+
+                $page[$key]['created_time'] = date('d.m.y H:i:s ', strtotime($booking['created_time']));
+            }
 
             return [
-                'page' => $this->entityManager->getRepository(Booking::class)->getPageByStatus($limit, $offset, $status),
+                'page' => $page,
                 'count_pages' => $count_pages,
             ];
 
@@ -97,42 +111,28 @@ class BookingManager
         }
     }
 
+
     /** возвращает количество страниц
      * @param $status
      * @param $page_limit : количество записей на странице
      * @return int
      */
-    public function countPages($status, $page_limit): int
+    public function countPages($status, $page_limit, $rows): int
     {
         // всего записей
-        $count_rows_by_status = $this->entityManager->getRepository(Booking::class)->countRowsByStatus($status);
+//        $count_rows_by_status = $this->entityManager->getRepository(Booking::class)->countRowsByStatus($status);
 
-        if ($count_rows_by_status % $page_limit == 0) {
-            $count_pages = $count_rows_by_status / $page_limit;
+        if ($rows % $page_limit == 0) {
+            $count_pages = $rows / $page_limit;
         } else {
-            $count_pages = intdiv($count_rows_by_status, $page_limit) + 1;
+            $count_pages = intdiv($rows, $page_limit) + 1;
         }
         return $count_pages;
     }
 
     public function filterParams($status, $page_number, $page_limit)
     {
-        /*
-        if ($status != 'confirm' && $status != 'reject' && $status != 'new') {
-//          $status = null;
-            unset($status);
-        }
-        if ($status == 'new') {
-//            $status = null;
-            unset($status);
-        }
-        if ($status == 'confirm') {
-            $status = 1;
-        }
-        if ($status == 'reject') {
-            $status = 0;
-        }
-        */
+
         switch ($status) {
             case 'reject' :
                 $status = 0;
@@ -196,7 +196,7 @@ class BookingManager
         try {
             $booking = $this->entityManager->getRepository(Booking::class)->find($filtered_status_data['booking_id']);
             if (!$booking) {
-                throw new \Exception('ID: "' . $filtered_status_data['booking_id'] . '" не найден.');
+                throw new \Exception('Запись с ID: "' . $filtered_status_data['booking_id'] . '" не найдена.');
             }
 
             $booking->setStatus($filtered_status_data['status']);
@@ -273,6 +273,30 @@ class BookingManager
 //                'response' => 'error',
 //                'message' => $e->getMessage(),
 //            ];
+        }
+    }
+
+    public function updateBookingById(array $booking_data)
+    {
+        try {
+            $booking = $this->entityManager->getRepository(Booking::class)->find($booking_data['id']);
+            if (!$booking) {
+                throw new \Exception('Запись с ID: "' . $booking_data['id'] . '" не найдена.');
+            }
+
+
+            $booking->setId($booking_data['id']);
+            $booking->setName($booking_data['name']);
+            $booking->setEmail($booking_data['email']);
+            $booking->setPhone($booking_data['phone']);
+            $booking->setMessage($booking_data['booking-msg']);
+            $booking->setTime($booking_data['hidden_booking_time']);
+
+            $this->entityManager->flush();
+
+        } catch (\Exception $e) {
+
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -391,5 +415,91 @@ class BookingManager
         }
 
         return $day_of_the_week;
+    }
+
+    private function checkParams($params)
+    {
+        switch ($params['status']) {
+            case ('null'):
+                $params['status'] = 'IS NULL';
+                break;
+            case ('0'):
+            case 0:
+                $params['status'] = '= 0';
+                break;
+            case ('1'):
+            case 1:
+                $params['status'] = '= 1';
+                break;
+            default:
+                throw new \Exception('Статус введен не верно:' . $params['status']);
+        }
+        switch ($params['sort-by']) {
+            case ('id'):
+                $params['sort-by'] = 'id';
+                break;
+            default:
+                throw new \Exception('Поле сортировки введено не верно:' . $params['sort-by']);
+        }
+        switch ($params['asc-or-desc']) {
+            case ('ASC'):
+            case ('asc'):
+                $params['asc-or-desc'] = 'ASC';
+                break;
+            case ('DESC'):
+            case ('desc'):
+                $params['asc-or-desc'] = 'DESC';
+                break;
+            default:
+                throw new \Exception('Параметр сортировки введен не верно:' . $params['asc-or-desc']);
+        }
+
+        if (isset($params['search-by'])) {
+            switch ($params['search-by']) {
+                case ('id'):
+                    $params['search-by'] = 'id';
+                    break;
+                case ('name'):
+                    $params['search-by'] = 'name';
+                    break;
+                case ('email'):
+                    $params['search-by'] = 'email';
+                    break;
+                case ('phone'):
+                    $params['search-by'] = 'phone';
+                    break;
+                default:
+                    throw new \Exception('Неизвестное поле для поиска:' . $params['search-by']);
+            }
+            $params['search-word'] = htmlspecialchars($params['search-word']);
+        }
+        if (isset($params['date-or-create-date'])) {
+            switch ($params['date-or-create-date']) {
+                case ('created-date'):
+                    $params['date-or-create-date'] = 'created_time';
+                    break;
+                case ('date'):
+                    $params['date-or-create-date'] = 'time';
+                    break;
+                default:
+                    throw new \Exception('Неизвестное поле для поиска:' . $params['sdate-or-create-date']);
+            }
+            if (isset($params['date-from'])) {
+                if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $params['date-from'])) {
+                    throw new \Exception('Неверный формат даты!');
+                }
+            } else {
+                $params['date-from'] = '1970-01-01';
+            }
+            if (isset($params['date-to'])) {
+                if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $params['date-to'])) {
+                    throw new \Exception('Неверный формат даты!');
+                }
+            } else {
+                $params['date-to'] = date('Y-m-d');
+            }
+
+        }
+        return $params;
     }
 }

@@ -2,8 +2,8 @@
 $searchForm = $this->searchForm;
 $form_response = $this->form_response;
 //$this->headScript()->appendFile('/js/xhr.js', 'text/javascript');
-$searchForm->get('submit')->setAttributes(['type' => "button"]);
-$searchForm->get('submit')->setAttributes(['onclick' => "Search()"]);
+//$searchForm->get('submit')->setAttributes(['type' => "button"]);
+//$searchForm->get('submit')->setAttributes(['onclick' => "Search()"]);
 ?>
 <div class="search-form">
     <div class="form-group ">
@@ -15,9 +15,7 @@ $searchForm->get('submit')->setAttributes(['onclick' => "Search()"]);
             <?= $this->formLabel($searchForm->get('spare_parts')); ?>
             <?= $this->formElement($searchForm->get('spare_parts')); ?>
             <?= $this->formElementErrors($searchForm->get('spare_parts')); ?>
-        </div>
 
-        <div>
             <?= $this->formElement($searchForm->get('submit')); ?>
         </div>
 

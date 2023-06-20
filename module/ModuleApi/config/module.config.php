@@ -23,18 +23,19 @@ return [
                         'options' => [
                             'route' => '/booking',
                             'defaults' => [
-                                'controller' => Controller\IndexController::class
+                                'controller' => Controller\BookingController::class
                             ],
                         ],
                         'may_terminate' => false,
                         'child_routes' => [
+
                             'create-booking' => [
                                 'type' => Method::class,
                                 'options' => [
                                     'verb' => 'POST',
                                     'defaults' => [
-                                        'controller' => Controller\IndexController::class,
-                                        'action' => 'createBooking',
+                                        'controller' => Controller\BookingController::class,
+                                        'action' => 'create',
                                     ],
                                 ],
                             ],
@@ -43,40 +44,79 @@ return [
                                 'options' => [
                                     'verb' => 'GET',
                                     'defaults' => [
-                                        'controller' => Controller\OperatorController::class,
-                                        'action' => 'BookingList',
+                                        'controller' => Controller\BookingController::class,
                                     ],
                                 ],
+                                'child_routes' => [
+                                    'params-list-booking' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' =>
+                                                '[/is-approved/:boolean-or-is_null]' .
+                                                '[/sort-by/:sort-by-id-or-phone-or-name-or-email]' .
+                                                '[/asc-or-desc/:asc-or-desc]' .
+                                                '[/search-by/:search-by-id-or-phone-or-name-or-email]' .
+                                                '[/search-word/:word]' .
+                                                '[/date-or-create-date/:date]' .
+                                                '[/from/:from]' .
+                                                '[/to/:to]' .
+                                                '[/page/:page]' .
+                                                '[/limit/:limit]',
+                                            'defaults' => [
+                                                'controller' => Controller\BookingController::class,
+                                                'action' => 'list',
+                                            ],
+                                        ],
+                                    ],
+                                ]
                             ],
                             'update-booking' => [
                                 'type' => Method::class,
                                 'options' => [
                                     'verb' => 'PUT',
                                     'defaults' => [
-                                        'controller' => Controller\OperatorController::class,
+                                        'controller' => Controller\BookingController::class,
                                     ],
                                 ],
                                 'child_routes' => [
-                                    'update-booking-id' => [
+                                    'approve-booking' => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '[/:id]',
+                                            'route' => '/approve[/:id]',
                                             'defaults' => [
-                                                'controller' => Controller\OperatorController::class,
-                                                'action' => 'updateBooking',
+                                                'controller' => Controller\BookingController::class,
+                                                'action' => 'approve',
                                             ],
                                         ],
                                     ],
+                                    'decline-booking' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/decline[/:id]',
+                                            'defaults' => [
+                                                'controller' => Controller\BookingController::class,
+                                                'action' => 'decline',
+                                            ],
+                                        ],
+                                    ],
+                                    'edit-booking' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/edit[/:id]',
+                                            'defaults' => [
+                                                'controller' => Controller\BookingController::class,
+                                                'action' => 'edit',
+                                            ],
+                                        ],
+                                    ]
                                 ]
                             ],
                             'delete-booking' => [
                                 'type' => Method::class,
                                 'options' => [
                                     'verb' => 'DELETE',
-                                    'route' => '[/:id]',
                                     'defaults' => [
-                                        'controller' => Controller\OperatorController::class,
-                                        'action' => 'deleteBooking',
+                                        'controller' => Controller\BookingController::class,
                                     ],
                                 ],
                                 'child_routes' => [
@@ -85,8 +125,8 @@ return [
                                         'options' => [
                                             'route' => '[/:id]',
                                             'defaults' => [
-                                                'controller' => Controller\OperatorController::class,
-                                                'action' => 'deleteBooking',
+                                                'controller' => Controller\BookingController::class,
+                                                'action' => 'delete',
                                             ],
                                         ],
                                     ],
@@ -95,14 +135,14 @@ return [
                         ],
                     ],
 
-                    'timeslots' => [
+                    'not-booked-time' => [
                         'type' => Literal::class,
                         'may_terminate' => true,
                         'options' => [
-                            'route' => '/time-slots',
+                            'route' => '/not-booked-time',
                             'defaults' => [
                                 'controller' => Controller\IndexController::class,
-                                'action' => 'timeSlots',
+                                'action' => 'notBookedTime',
                             ],
                         ],
                     ],
@@ -149,50 +189,6 @@ return [
                             ],
                         ],
                     ],
-                    /*  'panel' => [
-                          'type' => Literal::class,
-                          'options' => [
-                              'route' => '/panel',
-                              'defaults' => [
-                                  'controller' => Controller\OperatorController::class,
-                              ],
-                              'child_routes' => [
-                                  'booking-list' => [
-                                      'type' => Method::class,
-                                      'options' => [
-                                          'verb' => 'GET',
-                                          'route' => '/booking',
-                                          'defaults' => [
-                                              'controller' => Controller\OperatorController::class,
-                                              'action' => 'bookingList',
-                                          ],
-                                      ],
-                                  ],
-                                  'current-booking' => [
-                                      'type' => Method::class,
-                                      'options' => [
-                                          'verb' => 'POST',
-                                          'route' => '/booking',
-                                          'defaults' => [
-                                              'controller' => Controller\OperatorController::class,
-                                          ],
-                                          'child_routes' => [
-                                              'booking-id' => [
-                                                  'type' => Segment::class,
-                                                  'options' => [
-                                                      'route' => '[/:id]',
-                                                      'defaults' => [
-                                                          'controller' => Controller\OperatorController::class,
-                                                          'action' => 'currentBooking',
-                                                      ],
-                                                  ],
-                                              ],
-                                          ],
-                                      ],
-                                  ],
-                              ],
-                          ],
-                      ], */
                 ],
             ],
         ],
@@ -200,6 +196,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            Controller\BookingController::class => Controller\Factory\BookingControllerFactory::class,
             Controller\AuthController::class => Controller\Factory\IndexControllerFactory::class,
             Controller\OperatorController::class => Controller\Factory\OperatorControllerFactory::class,
         ],
@@ -207,10 +204,10 @@ return [
     'service_manager' => [
         'factories' => [
             Entity\Repositories\UserRepository::class => Entity\Repositories\Factory\AuthRepositoryFactory::class,
-            Service\UserManager::class => Service\Factory\UserManagerFactory::class,
-            Service\BookingManager::class => Service\Factory\BookingManagerFactory::class,
-            Service\EntityManager::class => Service\Factory\EntityManagerFactory::class,
-            Service\MailManager::class => Service\Factory\MailManagerFactory::class,
+//            Service\UserManager::class => Service\Factory\UserManagerFactory::class,
+//            Service\BookingManager::class => Service\Factory\BookingManagerFactory::class,
+//            Service\EntityManager::class => Service\Factory\EntityManagerFactory::class,
+//            Service\MailManager::class => Service\Factory\MailManagerFactory::class,
         ],
     ],
     'view_manager' => [

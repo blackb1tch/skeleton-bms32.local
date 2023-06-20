@@ -1,86 +1,152 @@
 <?= $this->doctype() ?>
 
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<head>
 
-        <?= $this->headTitle('БрянскМАЗсервис')->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <?= $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu|Nunito">
+    <?= $this->headTitle('БрянскМАЗсервис')->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <!-- Le styles -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-            ->prependStylesheet($this->basePath('css/style.css'))
-            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
-        ?>
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
 
-        <!-- Scripts -->
-        <?= $this->inlineScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
-        ?>
-	
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-light">
-			<div class="container bg-light mt-5 ">
-				<div class="row">
-					<div class="col ">
-						<div class="container-fluid">
-							<img class="navbar-brand" src="" alt="bms-32 logo">
-						</div>
-						<div>
-							<div class="nav-item">
-								<span>
+    <!-- Le styles -->
+    <?php
+    $landing_css = glob("public/build/landing_*.css");
+    $landing_css = explode("/", $landing_css[0])[2];
+    ?>
+
+    <?=
+
+    $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('build/' . $landing_css))
+    //            ->prependStylesheet($this->basePath('css/base.css'))
+    ?>
+
+    <?php
+    $landing_js = glob("public/build/landing_*.js");
+    $landing_js = explode("/", $landing_js[0])[2];
+    ?>
+    <!-- Scripts -->
+    <?= $this->inlineScript()
+        ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
+        ->prependFile($this->basePath('build/' . $landing_js))
+    ?>
+
+
+</head>
+<body>
+
+<div class="navbar-header">
+    <div class="header">
+        <div class="header-title"> Подробная информация по телефону</div>
+        <div class="header-text">ЗАО «БрянскМАЗСервис»</div>
+
+    </div>
+    <div class="content">
+
+        <div class="nav-item">
+								<div>
 									ЗАО "БрянскМАЗсервис"
-								</span>
-							</div>
-							<div class="nav-item">
-								<span>
-									Юридический адрес: 241050, г.Брянск, ул. Фрунзе 64А
-								</span>
-							</div>
-							<div class="nav-item">
-								<span>
-									ИНН 3235005700
-								</span>
-							</div>
-							<div class="nav-item">
-								<span>
-									КПП 325701001
-								</span>
-							</div>
-							<div class="nav-item">
-								<span>
-									ОГРН 1023201285250
-								</span>
-							</div>
-							<div class="nav-item">
-								<span>
-									Телефоны: 8-(4832)-66-38-58, 41-96-66
-								</span>
-							</div> 
-							<div class="nav-item">
-								<span>
-									e-mail: zao-bryanskmazservis@yandex.ru
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>	
-			</div>			
-		</nav>
-
-        <div class="container">
-            <?= $this->content ?>
-            <footer class="footer">
-                <p>&copy; 2005 - <?= date('Y') ?> БрянскМАЗсервис. Все права защищены.</p>
-            </footer>
+								</div>
         </div>
-        <?= $this->inlineScript() ?>
-    </body>
+        <div class="nav-item">
+								<div>
+									Юридический адрес: 241050, г.Брянск, ул. Фрунзе 64А
+								</div>
+        </div>
+        <div class="nav-item">
+								<div>
+									ИНН 3235005700
+								</div>
+        </div>
+        <div class="nav-item">
+								<div>
+									КПП 325701001
+								</div>
+        </div>
+        <div class="nav-item">
+								<div>
+									ОГРН 1023201285250
+								</div>
+        </div>
+        <div class="nav-item">
+								<div>
+									Телефоны: 8-(4832)-66-38-58, 41-96-66
+								</div>
+        </div>
+        <div class="nav-item">
+								<div>
+									e-mail: zao-bryanskmazservis@yandex.ru
+								</div>
+        </div>
+    </div>
+
+
+    <a id="logo" href="/"></a>
+</div>
+
+<!--<nav class="navbar navbar-expand-lg bg-light">-->
+<!--    <div class="container bg-light mt-5 ">-->
+<!--        <div class="row">-->
+<!--            <div class="col ">-->
+<!--                <div class="container-fluid">-->
+<!--                    <img class="navbar-brand" src="" alt="bms-32 logo">-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									ЗАО "БрянскМАЗсервис"-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									Юридический адрес: 241050, г.Брянск, ул. Фрунзе 64А-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									ИНН 3235005700-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									КПП 325701001-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									ОГРН 1023201285250-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									Телефоны: 8-(4832)-66-38-58, 41-96-66-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                    <div class="nav-item">-->
+<!--								<span>-->
+<!--									e-mail: zao-bryanskmazservis@yandex.ru-->
+<!--								</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<div class="container">
+    <?= $this->content ?>
+    <hr>
+    <footer class="footer">
+        <p>&copy; 2005 - <?= date('Y') ?> БрянскМАЗсервис. Все права защищены.</p>
+    </footer>
+</div>
+<?= $this->inlineScript() ?>
+</body>
 </html>

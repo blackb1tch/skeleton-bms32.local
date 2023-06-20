@@ -65,6 +65,75 @@ class BookingRepository extends EntityRepository
 //        return $query->getResult();
     }
 
+
+    public function getPageByFilterParams($params): array
+    {
+        $sql_part_1 = ' ';
+        $sql_part_2 = ' ';
+        $sql_start_part = 'SELECT * FROM `booking` WHERE (status ' . $params['status'] . ')';
+        if (isset($params['search-by'])) {
+            $sql_part_1 = ' and (' . $params['search-by'] . ' LIKE "' . $params['search-word'] . '%")';
+        }
+        if (isset($params['date-or-create-date'])) {
+            $sql_part_2 = ' and (' . $params['date-or-create-date'] . ' BETWEEN "' . $params['date-from'] . '" AND "' . $params['date-to'] . '")';
+        }
+
+        $sql_end_part = 'ORDER BY ' . $params['sort-by'] . '  ' . $params['asc-or-desc'];
+        $sql_limit_part = ' LIMIT ' . $params['limit'] . ', ' . $params['offset'];
+// @TODO: расчет limit, offset через sql
+        $sql = $sql_start_part . $sql_part_1 . $sql_part_2 . $sql_end_part . $sql_limit_part;
+
+        $rsm = new ResultSetMapping;
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('name', 'name');
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('phone', 'phone');
+        $rsm->addScalarResult('message', 'message');
+        $rsm->addScalarResult('time', 'time');
+        $rsm->addScalarResult('created_time', 'created_time');
+        $rsm->addScalarResult('status', 'status');
+        $rsm->addScalarResult('COUNT(*)', 'count_pages');
+
+        $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
+
+
+        return $query->execute();
+    }
+
+
+
+    public function countRowsByFilterParams($params): array
+    {
+        $sql_part_1 = ' ';
+        $sql_part_2 = ' ';
+        $sql_start_part = 'SELECT COUNT(*) FROM `booking` WHERE (status ' . $params['status'] . ')';
+        if (isset($params['search-by'])) {
+            $sql_part_1 = ' and (' . $params['search-by'] . ' LIKE "' . $params['search-word'] . '%")';
+        }
+        if (isset($params['date-or-create-date'])) {
+            $sql_part_2 = ' and (' . $params['date-or-create-date'] . ' BETWEEN "' . $params['date-from'] . '" AND "' . $params['date-to'] . '")';
+        }
+        $sql_end_part = 'ORDER BY ' . $params['sort-by'] . '  ' . $params['asc-or-desc'];
+
+        $count_rows_sql = $sql_start_part . $sql_part_1 . $sql_part_2 . $sql_end_part;
+
+
+        $rsm = new ResultSetMapping;
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('name', 'name');
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('phone', 'phone');
+        $rsm->addScalarResult('message', 'message');
+        $rsm->addScalarResult('time', 'time');
+        $rsm->addScalarResult('created_time', 'created_time');
+        $rsm->addScalarResult('status', 'status');
+        $rsm->addScalarResult('COUNT(*)', 'count_pages');
+
+        $count_rows = $this->getEntityManager()->createNativeQuery($count_rows_sql, $rsm);
+
+        return $count_rows->execute();
+    }
+
     /**
      * @param int $page
      * @param null $status

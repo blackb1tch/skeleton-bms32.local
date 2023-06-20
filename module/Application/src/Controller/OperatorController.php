@@ -24,58 +24,61 @@ class OperatorController extends AbstractActionController
 
     public function indexAction()
     {
-        $this->layout()->setTemplate('layout/operator-layout');
+
         if ($this->sessionContainer->loggedIn) {
-            $is_sure = false;
+        $this->layout()->setTemplate('layout/operator-layout');
 
-            $status = $this->params()->fromRoute('status');
-            $page_limit = $this->params()->fromRoute('limit', 5);
-            $page_number = $this->params()->fromRoute('page', 1);
-
-            $url_params = $this->bookingManager->filterParams($status, $page_number, $page_limit);
-
-            try {
-                // получение страницы, количества страниц
-                $pageArray = $this->bookingManager->getPage($url_params['page_limit'], $url_params['page_number'], $url_params['status']);
-
-            } catch (\Exception $e) {
-                $viewModel = new ViewModel([
-                    'error_message' => $e->getMessage(),
-                ]);
-                $viewModel->setTemplate('error/exception-error');
-                return $viewModel;
-            }
-            if (empty($status)){
-                $status = 'new';
-            }
-            $paginatorParams = [
-                'count_pages' => $pageArray['count_pages'],
-                'previous' => $url_params['page_number'] - 1,
-                'next' => $url_params['page_number'] + 1,
-                'current' => $url_params['page_number'],
-                'url' => '/' . $status . '/' . $url_params['page_limit'] . '/',
-            ];
-
-
-            $statusFormConfirm = new StatusForm();
-            $statusFormReject = new StatusForm();
-
-            $isAjax = $this->getRequest()->isXmlHttpRequest();
-            if ($isAjax) {
-
-                return new JsonModel([
-                    'booking_card_list' => $pageArray['page'],
-                    'is_sure' => $is_sure,
-                    'paginatorParams' => $paginatorParams,
-                ]);
-            }
-            return new ViewModel([
-                'booking_card_list' => $pageArray['page'],
-                'statusFormConfirm' => $statusFormConfirm,
-                'statusFormReject' => $statusFormReject,
-                'is_sure' => $is_sure,
-                'paginatorParams' => $paginatorParams,
-            ]);
+//            $is_sure = false;
+//
+//            $status = $this->params()->fromRoute('status');
+//            $page_limit = $this->params()->fromRoute('limit', 5);
+//            $page_number = $this->params()->fromRoute('page', 1);
+//
+//            $url_params = $this->bookingManager->filterParams($status, $page_number, $page_limit);
+//
+//            try {
+//                // получение страницы, количества страниц
+//                $pageArray = $this->bookingManager->getPage($url_params['page_limit'], $url_params['page_number'], $url_params['status']);
+//
+//            } catch (\Exception $e) {
+//                $viewModel = new ViewModel([
+//                    'error_message' => $e->getMessage(),
+//                ]);
+//                $viewModel->setTemplate('error/exception-error');
+//                return $viewModel;
+//            }
+//            if (empty($status)){
+//                $status = 'new';
+//            }
+//            $paginatorParams = [
+//                'count_pages' => $pageArray['count_pages'],
+//                'previous' => $url_params['page_number'] - 1,
+//                'next' => $url_params['page_number'] + 1,
+//                'current' => $url_params['page_number'],
+//                'url' => '/' . $status . '/' . $url_params['page_limit'] . '/',
+//            ];
+//
+//
+//            $statusFormConfirm = new StatusForm();
+//            $statusFormReject = new StatusForm();
+//
+//            $isAjax = $this->getRequest()->isXmlHttpRequest();
+//            if ($isAjax) {
+//
+//                return new JsonModel([
+//                    'booking_card_list' => $pageArray['page'],
+//                    'is_sure' => $is_sure,
+//                    'paginatorParams' => $paginatorParams,
+//                ]);
+//            }
+//            return new ViewModel([
+//                'booking_card_list' => $pageArray['page'],
+//                'statusFormConfirm' => $statusFormConfirm,
+//                'statusFormReject' => $statusFormReject,
+//                'is_sure' => $is_sure,
+//                'paginatorParams' => $paginatorParams,
+//            ]);
+            return new ViewModel();
         }
         // err нет доступа
         return $this->notFoundAction();

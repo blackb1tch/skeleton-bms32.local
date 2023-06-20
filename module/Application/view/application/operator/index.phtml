@@ -1,28 +1,19 @@
 <?php
-$this->headTitle('Operator-panel');
+$this->headTitle('Operator-menu');
 
-$booking_card_list = $this->booking_card_list;
-$statusFormConfirm = $this->statusFormConfirm;
-$statusFormReject = $this->statusFormReject;
-$is_sure = $this->is_sure;
-$paginatorParams = $this->paginatorParams;
-$url = $paginatorParams['url'] . $paginatorParams['current'];
+//$this->headLink()->prependStylesheet('/build/operator_11e5.css');
 
-if (isset($booking_card_list)) {
-    foreach ($booking_card_list as $booking_card) {
+?>
 
-        $statusFormConfirm->setAttribute('action', '/are-you-sure');
-        $statusFormReject->setAttribute('action', '/are-you-sure');
-        $id = /*$booking->getId()*/
-            $booking_card['id'];
-        $statusFormConfirm->get('booking_id')->setAttributes(['value' => "$id"]);
-        $statusFormConfirm->get('url')->setAttributes(['value' => "$url"]);
-        $statusFormReject->get('booking_id')->setAttributes(['value' => "$id"]);
-        $statusFormReject->get('url')->setAttributes(['value' => "$url"]);
+<div class="control-container">
 
-        // выводит карточку заявки
-        echo $this->partial('application/operator/booking-card', ['statusFormConfirm' => $statusFormConfirm, 'statusFormReject' => $statusFormReject, 'booking_card' => $booking_card]);
-    }
-}
-echo $this->partial('application/partial/paginator', ['params' => $paginatorParams]);
+    <?php echo $this->partial('application/operator/booking-card-filter'); ?>
 
+
+    <div class="booking-card-list" id="list">
+        <?php echo $this->partial('application/operator/booking-card'); ?>
+    </div>
+    <div class="logout-menu">
+        <a href='/logout' class="btn btn-outline-secondary">Выход</a>
+    </div>
+</div>

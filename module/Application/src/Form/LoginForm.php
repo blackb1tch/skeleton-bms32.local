@@ -35,7 +35,7 @@ class LoginForm extends Form
             'attributes' => [
                 'class' => 'form-control',
                 'size' => '70',
-                'placeholder' => 'Введите Логин'
+                'placeholder' => 'user-Alex'
             ],
             'options' => [
                 'label' => 'Логин:',
@@ -48,7 +48,7 @@ class LoginForm extends Form
             'attributes' => [
                 'class' => 'form-control',
                 'size' => '70',
-                'placeholder' => 'Введите Пароль'
+                'placeholder' => '*complex-password*'
             ],
             'options' => [
                 'label' => 'Пароль:',

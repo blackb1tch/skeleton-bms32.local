@@ -26,8 +26,8 @@ class AuthController extends AbstractActionController
     public function loginAction()
     {
         if($this->sessionContainer->loggedIn) {
-            return $this->redirect()->toRoute('panel',
-                ['action' => 'bookingList']);
+            return $this->redirect()->toRoute('menu',
+                ['action' => 'index']);
         }
         $loginForm = new LoginForm();
         if ($this->getRequest()->isPost()) {
@@ -47,8 +47,8 @@ class AuthController extends AbstractActionController
                         $this->authManager->checkUser($data);
                         $this->sessionContainer->loggedIn = $data['login'];
                         return $this->redirect()->toRoute(
-                            'panel',
-                            ['action' => 'bookingList']
+                            'menu',
+                            ['action' => 'index']
                         );
                     }catch(\Exception $e){
                         return new ViewModel([

@@ -48,6 +48,7 @@ class BookingForm extends Form
             'type' => 'hidden',
             'name' => 'hidden_booking_time',
             'attributes' => [
+                'id' => 'input_hidden_time',
                 'class' => 'form-control hidden_booking_time',
             ],
             'options' => [
