@@ -1,5 +1,6 @@
 import XHR from '../xhr';
 import BaseForm from "../BaseForm";
+import Router from "./Router";
 
 export default class OperatorMenu extends BaseForm {
     json_promise;
@@ -8,9 +9,12 @@ export default class OperatorMenu extends BaseForm {
     default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
     cache_route;
     is_approved;
+    count_pages;
+    // router;
 
     constructor(cache_route) {
         super();
+        // this.router = new Router();
         this.cache_route = cache_route;
         this.getList(this.default_route);
     }
@@ -27,6 +31,7 @@ export default class OperatorMenu extends BaseForm {
             let json = (JSON.parse(result));
             if (json['response'] === 'OK') {
                 let booking_list = json['page-array']['page'];
+                self.count_pages = json['page-array']['count_pages'];
                 self.is_approved = booking_list['status'];
                 self.render(booking_list);
                 self.listeners();
@@ -44,6 +49,7 @@ export default class OperatorMenu extends BaseForm {
 
     listeners() {
         this.buttonHandler();
+        this.paginationHandler();
     }
 
     buttonHandler() {
@@ -91,7 +97,6 @@ export default class OperatorMenu extends BaseForm {
                 let approve = xhr.getXhr();
 
                 approve.then(function (result) {
-                    console.log(result);
                     let json = (JSON.parse(result));
                     if (json['response'] === 'success') {
 
@@ -185,6 +190,109 @@ export default class OperatorMenu extends BaseForm {
         });
     }
 
+    paginationHandler() {
+        this.routeExplode(this.cache_route);
+        let nav = document.querySelector('div.paginator-control').querySelector('nav');
+        let middle = nav.querySelector('div.middle');
+        this.clearPaginator(middle);
+        let a = document.createElement('a');
+        let route_obj = this.routeExplode(this.cache_route);
+
+        // если страница единственная, скрыть панель пагинатора
+        if (this.count_pages === 1) {
+            nav.style.display = 'none';
+        } else {
+            if (route_obj['page'] - 1 === 0) {
+                console.log('route_obj[\'page\'] -1 === 0');
+                nav.querySelector('div.previous-button').querySelector('a').className = 'disabled';
+            } else {
+                console.log('else');
+                nav.querySelector('div.previous-button').querySelector('a').href = +route_obj['page'] - 1;
+                nav.querySelector('div.previous-button').querySelector('a').className = 'enabled';
+            }
+            if (route_obj['page'] + 1 > this.count_pages) {
+                console.log('route_obj[\'page\']+1 >this.count_pages');
+                nav.querySelector('div.next-button').querySelector('a').className = 'disabled';
+            } else {
+                nav.querySelector('div.next-button').querySelector('a').href = route_obj['page'] + 1;
+                nav.querySelector('div.next-button').querySelector('a').className = 'enabled';
+            }
+        }
+
+        if (this.count_pages < 6) {
+            console.log(typeof route_obj['page']);
+
+
+            for (let page = 1; page <= this.count_pages; page++) {
+
+                route_obj['page'] = page;
+                let local_a = a.cloneNode(true);
+                local_a.innerHTML = page;
+                local_a.className = 'enabled';
+                local_a.href = this.makeRoute(route_obj);
+                middle.append(local_a);
+            }
+
+            // если страниц больше 6
+        } else {
+            // вывод первых 2 страниц
+            for (let page = 1; page < 3; page++) {
+
+                route_obj['page'] = page;
+                let local_a = a.cloneNode(true);
+                local_a.innerHTML = page;
+                local_a.className = 'enabled';
+                local_a.href = this.makeRoute(route_obj);
+                middle.append(local_a);
+            }
+            let local_a = a.cloneNode(true);
+            local_a.innerHTML = '...';
+            local_a.className = 'disabled';
+            middle.append(local_a);
+
+            // вывод последних 2 страниц
+            for (let page = this.count_pages - 1; page <= this.count_pages; page++) {
+
+                route_obj['page'] = page;
+                let local_a = a.cloneNode(true);
+                local_a.innerHTML = page;
+                local_a.className = 'enabled';
+                local_a.href = this.makeRoute(route_obj);
+                middle.append(local_a);
+            }
+        }
+
+    }
+
+    clearPaginator(nav) {
+        let paginator = nav.querySelectorAll('a');
+
+        for (let i = 0; i < paginator.length; i++) {
+            paginator[i].remove()
+        }
+    }
+
+    routeExplode(route) {
+        let route_obj = {};
+        let route_array = route.split('/');
+        for (let key = 1; key < route_array.length; key += 2) {
+            let arr_elem = route_array[key];
+            route_obj[arr_elem] = route_array[key + 1];
+        }
+        return route_obj;
+    }
+
+    makeRoute(route_obj) {
+        let make_route = '/';
+        for (let key in route_obj) {
+            if (key !== 'limit') {
+                make_route = make_route + key + '/' + route_obj[key] + '/';
+            } else {
+                make_route = make_route + key + '/' + route_obj[key];
+            }
+        }
+        return make_route;
+    }
 
     render(booking_list) {
         for (let booking_card in booking_list) {

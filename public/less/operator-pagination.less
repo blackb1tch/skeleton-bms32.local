@@ -1,0 +1,39 @@
+div.paginator-control {
+  display: flex;
+  justify-content: center;
+  margin-bottom: @margin-l;
+
+  nav {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    border: @border-size @border-type @color-outline-secondary;
+    border-radius: @border-radius;
+    height: 2em;
+
+    a {
+      display: block;
+      padding: @padding-s;
+      text-decoration: none;
+      color: @color-black;
+    }
+
+    a.enabled {
+      cursor: pointer;
+    }
+
+    a.enabled:hover {
+      background-color: @color-outline-secondary;
+      color: @color-white;
+    }
+
+    div.middle {
+      display: inherit;
+
+      a.disabled {
+        cursor: default;
+      }
+
+    }
+  }
+}

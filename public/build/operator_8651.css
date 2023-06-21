@@ -260,7 +260,7 @@ div.booking-card-list {
   font-family: 'Ubuntu', serif;
   display: inline-block;
   width: 55%;
-  margin: 2em;
+  margin: 2em 2em 0.5em;
 }
 @media (max-width: 768px) {
   div.booking-card-list {
@@ -412,7 +412,7 @@ div.booking-card-list div.booking-error {
 div.filter {
   width: 16em;
   padding: 1em;
-  margin: 2em;
+  margin: 2em 2em 0.5em;
   background-color: #f8f9fa;
   display: inline-block;
 }
@@ -571,11 +571,43 @@ div.filter ul.control-list li:last-child div.control div.content {
 }
 div.logout-menu {
   background-color: #f8f9fa;
-  margin: 2em;
+  margin: 2em 2em 0.5em;
   padding: 1em;
 }
 div.logout-menu a {
   text-decoration: none;
+}
+div.paginator-control {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+div.paginator-control nav {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  border: 0.0625em solid #6c757d;
+  border-radius: 0.25em;
+  height: 2em;
+}
+div.paginator-control nav a {
+  display: block;
+  padding: 0.5em;
+  text-decoration: none;
+  color: #222;
+}
+div.paginator-control nav a.enabled {
+  cursor: pointer;
+}
+div.paginator-control nav a.enabled:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+div.paginator-control nav div.middle {
+  display: inherit;
+}
+div.paginator-control nav div.middle a.disabled {
+  cursor: default;
 }
 div.container div.control-container {
   display: flex;

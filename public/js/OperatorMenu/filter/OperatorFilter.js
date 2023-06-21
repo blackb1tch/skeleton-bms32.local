@@ -1,9 +1,11 @@
 import ControlsList from "./ControlsList";
 import OperatorMenu from "../OperatorMenu";
+import Router from "../Router";
 
 class OperatorFilter {
     cache_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
     default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
+    router = new Router();
     operatorMenu = new OperatorMenu(this.cache_route);
 
     constructor() {
