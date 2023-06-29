@@ -1,27 +1,19 @@
 import XHR from '../xhr';
 import BaseForm from "../BaseForm";
-import Router from "./Router";
+import Paginator from "../Paginator/Paginator";
 
 export default class OperatorMenu extends BaseForm {
     json_promise;
-    page = 1;
-    limit = 5;
-    default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
-    cache_route;
     is_approved;
     count_pages;
-    // router;
+    router;
 
-    constructor(cache_route) {
+    constructor(router) {
         super();
-        // this.router = new Router();
-        this.cache_route = cache_route;
-        this.getList(this.default_route);
+        this.router = router;
+        this.getList(this.router.getRoute());
     }
 
-    setRoute(cache_route) {
-        this.cache_route = cache_route;
-    }
 
     getList(route) {
         let xhr = new XHR('GET', '', '/api/booking' + route);
@@ -49,11 +41,12 @@ export default class OperatorMenu extends BaseForm {
 
     listeners() {
         this.buttonHandler();
-        this.paginationHandler();
+        // this.paginationHandler();
+        this.pagination();
     }
 
     buttonHandler() {
-
+        // кнопки подтвердить/отклонить/редактировать
         let card_list = document.querySelectorAll('.booking-card-control');
         let self = this;
         Array.from(card_list).forEach(function (card) {
@@ -75,6 +68,40 @@ export default class OperatorMenu extends BaseForm {
                 }
             }
         });
+        // кнопки пагинатора
+        let nav = document.querySelector('div.paginator-control').querySelector('nav');
+        nav.onclick = function (event) {
+            event.preventDefault();
+            let target = event.target;
+
+            if (target.tagName === 'A' && target.textContent !== '...') {
+
+                self.clearPage();
+                self.getList(target.name);
+                self.router.setRoute(target.name);
+                // target.classList.toggle('active');
+            }
+        }
+        // выбор кол-ва записей на странице
+        let select = document.querySelector('div.set-limit').querySelector('select');
+        select.onclick = function (event) {
+            // event.preventDefault();
+            let target = event.target;
+
+            if (target.tagName === 'OPTION') {
+                console.log(target.value);
+                self.router.setLimit(target.value);
+                console.log(self.router.getLimit());
+                console.log(self.router.getRoute());
+
+                self.clearPage();
+                self.getList(self.router.getRoute());
+            }
+
+
+            // target.classList.toggle('active');
+
+        }
     }
 
     areYouSure(card, target) {
@@ -101,7 +128,7 @@ export default class OperatorMenu extends BaseForm {
                     if (json['response'] === 'success') {
 
                         self.clearPage();
-                        self.getList(self.cache_route);
+                        self.getList(self.router.getRoute());
                     }
                     if (json['response'] === 'error' || json['response'] === 'exception') {
                         self.generateError(json['message'], card.id);
@@ -165,7 +192,7 @@ export default class OperatorMenu extends BaseForm {
             if (json['response'] === 'success' || json['response'] === 'OK') {
 
                 self.clearPage();
-                self.getList(self.cache_route);
+                self.getList(self.router.getRoute());
             }
             if (json['response'] === 'error' || json['response'] === 'exception') {
                 self.generateError(json['message'], card_id);
@@ -190,59 +217,75 @@ export default class OperatorMenu extends BaseForm {
         });
     }
 
+    pagination() {
+        let nav = document.querySelector('div.paginator-control').querySelector('nav');
+        let paginator = new Paginator(nav, this.router, this.count_pages);
+        // paginator.paginationHandler();
+    }
+
     paginationHandler() {
-        this.routeExplode(this.cache_route);
+
         let nav = document.querySelector('div.paginator-control').querySelector('nav');
         let middle = nav.querySelector('div.middle');
-        this.clearPaginator(middle);
+        this.paginationClear(middle);
         let a = document.createElement('a');
-        let route_obj = this.routeExplode(this.cache_route);
+        let route_obj = this.router.routeExplode(this.router.getRoute());
 
         // если страница единственная, скрыть панель пагинатора
         if (this.count_pages === 1) {
-            nav.style.display = 'none';
+            // nav.style.display = 'none';
+            nav.className = 'disabled';
         } else {
-            if (route_obj['page'] - 1 === 0) {
-                console.log('route_obj[\'page\'] -1 === 0');
+            nav.className = 'enabled';
+            if (+route_obj['page'] - 1 === 0) {
+
+                console.log('-1 =  0');
+
                 nav.querySelector('div.previous-button').querySelector('a').className = 'disabled';
             } else {
-                console.log('else');
-                nav.querySelector('div.previous-button').querySelector('a').href = +route_obj['page'] - 1;
+                console.log('-1 =  0 els');
+
+                let route_obj_local = route_obj;
+                route_obj_local['page'] = +route_obj_local['page'] - 1;
+                nav.querySelector('div.previous-button').querySelector('a').name = this.router.makeRoute(route_obj_local);
                 nav.querySelector('div.previous-button').querySelector('a').className = 'enabled';
             }
-            if (route_obj['page'] + 1 > this.count_pages) {
-                console.log('route_obj[\'page\']+1 >this.count_pages');
+            if (+route_obj['page'] + 1 > +this.count_pages) {
+                console.log('+1> pages');
                 nav.querySelector('div.next-button').querySelector('a').className = 'disabled';
+
             } else {
-                nav.querySelector('div.next-button').querySelector('a').href = route_obj['page'] + 1;
+                console.log('+1 < pages');
+                console.log(+route_obj['page']);
+
+                let route_obj_local = route_obj;
+                route_obj_local['page'] = +route_obj_local['page'] + 1;
+                nav.querySelector('div.next-button').querySelector('a').name = this.router.makeRoute(route_obj_local);
                 nav.querySelector('div.next-button').querySelector('a').className = 'enabled';
             }
         }
 
         if (this.count_pages < 6) {
-            console.log(typeof route_obj['page']);
-
-
             for (let page = 1; page <= this.count_pages; page++) {
 
                 route_obj['page'] = page;
                 let local_a = a.cloneNode(true);
                 local_a.innerHTML = page;
                 local_a.className = 'enabled';
-                local_a.href = this.makeRoute(route_obj);
+                local_a.name = this.router.makeRoute(route_obj);
                 middle.append(local_a);
             }
 
             // если страниц больше 6
         } else {
-            // вывод первых 2 страниц
+            // вывод кнопок для первых 2 страниц
             for (let page = 1; page < 3; page++) {
 
                 route_obj['page'] = page;
                 let local_a = a.cloneNode(true);
                 local_a.innerHTML = page;
                 local_a.className = 'enabled';
-                local_a.href = this.makeRoute(route_obj);
+                local_a.name = this.router.makeRoute(route_obj);
                 middle.append(local_a);
             }
             let local_a = a.cloneNode(true);
@@ -250,21 +293,21 @@ export default class OperatorMenu extends BaseForm {
             local_a.className = 'disabled';
             middle.append(local_a);
 
-            // вывод последних 2 страниц
+            // вывод кнопок для последних 2 страниц
             for (let page = this.count_pages - 1; page <= this.count_pages; page++) {
 
                 route_obj['page'] = page;
                 let local_a = a.cloneNode(true);
                 local_a.innerHTML = page;
                 local_a.className = 'enabled';
-                local_a.href = this.makeRoute(route_obj);
+                local_a.name = this.router.makeRoute(route_obj);
                 middle.append(local_a);
             }
         }
 
     }
 
-    clearPaginator(nav) {
+    paginationClear(nav) {
         let paginator = nav.querySelectorAll('a');
 
         for (let i = 0; i < paginator.length; i++) {
@@ -272,27 +315,6 @@ export default class OperatorMenu extends BaseForm {
         }
     }
 
-    routeExplode(route) {
-        let route_obj = {};
-        let route_array = route.split('/');
-        for (let key = 1; key < route_array.length; key += 2) {
-            let arr_elem = route_array[key];
-            route_obj[arr_elem] = route_array[key + 1];
-        }
-        return route_obj;
-    }
-
-    makeRoute(route_obj) {
-        let make_route = '/';
-        for (let key in route_obj) {
-            if (key !== 'limit') {
-                make_route = make_route + key + '/' + route_obj[key] + '/';
-            } else {
-                make_route = make_route + key + '/' + route_obj[key];
-            }
-        }
-        return make_route;
-    }
 
     render(booking_list) {
         for (let booking_card in booking_list) {
@@ -338,7 +360,7 @@ export default class OperatorMenu extends BaseForm {
     }
 
     generateSuccess(message, card_id) {
-        // super.generateBlockError(message, document.getElementById(card_id));
+
     }
 
     cloneBookingCard() {
@@ -361,6 +383,3 @@ export default class OperatorMenu extends BaseForm {
         }
     }
 }
-
-
-// new OperatorMenu()

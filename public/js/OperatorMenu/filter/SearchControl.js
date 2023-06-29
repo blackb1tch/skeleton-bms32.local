@@ -22,8 +22,6 @@ export default class SearchControl extends BaseControl {
             return false;
         }
         this.text_field.oninput = function () {
-
-
             for (let validator in self.ValidatorsList) {
                 if (validator === self.upName() + 'Validate') {
                     try {

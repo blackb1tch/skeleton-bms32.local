@@ -1,15 +1,46 @@
 export default class Router {
-    default_route_obj = {};
+    default_route;
     cached_route;
+    page = 1;
+    limit = 2;
+
+    constructor() {
+
+        this.default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/' + this.getPage() + '/limit/' + this.getLimit();
+        this.cached_route = this.default_route;
+    }
+
+    setRoute(route) {
+        this.cached_route = route;
+
+    }
+
+    setPage(page) {
+        this.page = page;
+    }
+
+    setLimit(limit) {
+        console.log('router-lim:', limit);
+        this.limit = limit;
+        let route = this.routeExplode(this.getRoute());
+        route['limit'] = limit;
+        this.setRoute(this.makeRoute(route));
+    }
+
+    setCookieRoute() {
+
+    }
 
     getRoute() {
         return this.cached_route;
     }
-    setRoute(route){
-        this.cached_route = route;
-    }
-    setCookieRoute(){
 
+    getPage() {
+        return this.page;
+    }
+
+    getLimit() {
+        return this.limit;
     }
 
     routeExplode(route) {

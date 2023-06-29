@@ -293,7 +293,7 @@ div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled
   flex-flow: row wrap;
   width: 100%;
   font-family: 'Ubuntu', serif;
-  background-color: #f8f9fa;
+  background-color: #fff;
 }
 div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-name div.value,
 div.booking-card-list div.booking-card-control ul.booking-card form.form-enabled li.card-phone div.value,
@@ -376,7 +376,7 @@ div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons d
 }
 div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div input {
   height: 2.2em;
-  width: 13em;
+  width: 9em;
   padding-top: 0.3em;
 }
 div.booking-card-list div.booking-card-control ul.booking-card-declined {
@@ -603,11 +603,37 @@ div.paginator-control nav a.enabled:hover {
   background-color: #6c757d;
   color: #fff;
 }
+div.paginator-control nav div.previous-button a.disabled,
+div.paginator-control nav div.next-button a.disabled {
+  display: none;
+}
+div.paginator-control nav div.previous-button a.enabled,
+div.paginator-control nav div.next-button a.enabled {
+  display: block;
+}
 div.paginator-control nav div.middle {
   display: inherit;
 }
 div.paginator-control nav div.middle a.disabled {
   cursor: default;
+}
+div.paginator-control nav div.middle a.active {
+  background-color: #6c757d;
+  color: #fff;
+}
+div.paginator-control nav.disabled {
+  display: none;
+}
+div.paginator-control nav.enabled {
+  display: flex;
+}
+div.paginator-control div.set-limit select {
+  background-color: #fff;
+  border: 0.0625em solid #6c757d;
+  border-radius: 0.25em;
+  width: 3em;
+  height: 2.6em;
+  margin-left: 1em;
 }
 div.container div.control-container {
   display: flex;

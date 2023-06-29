@@ -15,8 +15,10 @@ export default class NameValidate extends BaseValidator {
 
     Validate(field_value) {
         try {
-//@TODO: ошибка - ожидается DOM элемент, отправляется его значение
-            return this.CheckLength.checkLength(field_value);
+            let field_obj = {
+                value: field_value
+            };
+            return this.CheckLength.checkLength(field_obj);
         } catch (Error) {
             throw Error;
         }

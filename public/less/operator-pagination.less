@@ -27,13 +27,46 @@ div.paginator-control {
       color: @color-white;
     }
 
+    div.previous-button, div.next-button {
+      a.disabled {
+        display: none;
+      }
+
+      a.enabled {
+        display: block;
+      }
+
+    }
+
     div.middle {
       display: inherit;
 
       a.disabled {
         cursor: default;
       }
+      a.active {
+        background-color: @color-outline-secondary;
+        color: @color-white;
+      }
 
+    }
+  }
+
+  nav.disabled {
+    display: none;
+  }
+
+  nav.enabled {
+    display: flex;
+  }
+  div.set-limit {
+    select{
+      background-color: @color-white;
+      border: @border-size @border-type @color-outline-secondary;
+      border-radius: @border-radius;
+      width: 3em;
+      height: 2.6em;
+      margin-left: @margin;
     }
   }
 }

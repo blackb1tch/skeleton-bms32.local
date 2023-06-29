@@ -3,10 +3,8 @@ import OperatorMenu from "../OperatorMenu";
 import Router from "../Router";
 
 class OperatorFilter {
-    cache_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
-    default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
     router = new Router();
-    operatorMenu = new OperatorMenu(this.cache_route);
+    operatorMenu = new OperatorMenu(this.router);
 
     constructor() {
         let filter_control = document.querySelector('#filter-control');
@@ -30,14 +28,14 @@ class OperatorFilter {
                         controlsList[control].generateError(Error);
                     }
                 }
-                route = route + '/page/1/limit/5';
+                // route = route + '/page/1/limit/5';
+                route = route + '/page/' + self.router.getPage() + '/limit/'+ self.router.getLimit();
 
-                if (self.cache_route !== route) {
+                if (self.router.getRoute() !== route) {
                     // кеш роута
-                    self.cache_route = route
+                    self.router.setRoute(route) ;
 
-                    self.operatorMenu.setRoute( self.cache_route);
-                    // передать данные на сервер
+                    // передать данные в класс меню
                     self.operatorMenu.clearPage();
                     self.operatorMenu.getList(route);
                 }
@@ -46,11 +44,11 @@ class OperatorFilter {
         document.querySelector('#reset-btn').onclick = function (event) {
             let target = event.target;
             if (target.tagName === 'INPUT') {
-                if (self.cache_route !== self.default_route){
-                    self.cache_route = self.default_route;
+                if (self.router.getRoute() !== self.router.default_route){
+                    self.router.setRoute(self.router.default_route);
 
                     self.operatorMenu.clearPage();
-                    self.operatorMenu.getList(self.default_route);
+                    self.operatorMenu.getList(self.router.getRoute());
                 }
             }
         }

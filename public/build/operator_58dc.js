@@ -71,28 +71,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _xhr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../xhr */ "../js/xhr.js");
 /* harmony import */ var _BaseForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../BaseForm */ "../js/BaseForm.js");
-/* harmony import */ var _Router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Router */ "../js/OperatorMenu/Router.js");
+/* harmony import */ var _Paginator_Paginator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Paginator/Paginator */ "../js/Paginator/Paginator.js");
 
 
 
 class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
   json_promise;
-  page = 1;
-  limit = 5;
-  default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
-  cache_route;
   is_approved;
   count_pages;
-  // router;
-
-  constructor(cache_route) {
+  router;
+  constructor(router) {
     super();
-    // this.router = new Router();
-    this.cache_route = cache_route;
-    this.getList(this.default_route);
-  }
-  setRoute(cache_route) {
-    this.cache_route = cache_route;
+    this.router = router;
+    this.getList(this.router.getRoute());
   }
   getList(route) {
     let xhr = new _xhr__WEBPACK_IMPORTED_MODULE_0__["default"]('GET', '', '/api/booking' + route);
@@ -118,9 +109,11 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
   }
   listeners() {
     this.buttonHandler();
-    this.paginationHandler();
+    // this.paginationHandler();
+    this.pagination();
   }
   buttonHandler() {
+    // кнопки подтвердить/отклонить/редактировать
     let card_list = document.querySelectorAll('.booking-card-control');
     let self = this;
     Array.from(card_list).forEach(function (card) {
@@ -139,7 +132,36 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
         }
       };
     });
+    // кнопки пагинатора
+    let nav = document.querySelector('div.paginator-control').querySelector('nav');
+    nav.onclick = function (event) {
+      event.preventDefault();
+      let target = event.target;
+      if (target.tagName === 'A' && target.textContent !== '...') {
+        self.clearPage();
+        self.getList(target.name);
+        self.router.setRoute(target.name);
+        // target.classList.toggle('active');
+      }
+    };
+    // выбор кол-ва записей на странице
+    let select = document.querySelector('div.set-limit').querySelector('select');
+    select.onclick = function (event) {
+      // event.preventDefault();
+      let target = event.target;
+      if (target.tagName === 'OPTION') {
+        console.log(target.value);
+        self.router.setLimit(target.value);
+        console.log(self.router.getLimit());
+        console.log(self.router.getRoute());
+        self.clearPage();
+        self.getList(self.router.getRoute());
+      }
+
+      // target.classList.toggle('active');
+    };
   }
+
   areYouSure(card, target) {
     let self = this;
     let li_are_you_sure = card.querySelector('.are-you-sure');
@@ -160,7 +182,7 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
           let json = JSON.parse(result);
           if (json['response'] === 'success') {
             self.clearPage();
-            self.getList(self.cache_route);
+            self.getList(self.router.getRoute());
           }
           if (json['response'] === 'error' || json['response'] === 'exception') {
             self.generateError(json['message'], card.id);
@@ -216,7 +238,7 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
       let json = JSON.parse(result);
       if (json['response'] === 'success' || json['response'] === 'OK') {
         self.clearPage();
-        self.getList(self.cache_route);
+        self.getList(self.router.getRoute());
       }
       if (json['response'] === 'error' || json['response'] === 'exception') {
         self.generateError(json['message'], card_id);
@@ -238,54 +260,66 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
       "booking-msg": formData.get('card-message')
     });
   }
+  pagination() {
+    let nav = document.querySelector('div.paginator-control').querySelector('nav');
+    let paginator = new _Paginator_Paginator__WEBPACK_IMPORTED_MODULE_2__["default"](nav, this.router, this.count_pages);
+    // paginator.paginationHandler();
+  }
+
   paginationHandler() {
-    this.routeExplode(this.cache_route);
     let nav = document.querySelector('div.paginator-control').querySelector('nav');
     let middle = nav.querySelector('div.middle');
-    this.clearPaginator(middle);
+    this.paginationClear(middle);
     let a = document.createElement('a');
-    let route_obj = this.routeExplode(this.cache_route);
+    let route_obj = this.router.routeExplode(this.router.getRoute());
 
     // если страница единственная, скрыть панель пагинатора
     if (this.count_pages === 1) {
-      nav.style.display = 'none';
+      // nav.style.display = 'none';
+      nav.className = 'disabled';
     } else {
-      if (route_obj['page'] - 1 === 0) {
-        console.log('route_obj[\'page\'] -1 === 0');
+      nav.className = 'enabled';
+      if (+route_obj['page'] - 1 === 0) {
+        console.log('-1 =  0');
         nav.querySelector('div.previous-button').querySelector('a').className = 'disabled';
       } else {
-        console.log('else');
-        nav.querySelector('div.previous-button').querySelector('a').href = +route_obj['page'] - 1;
+        console.log('-1 =  0 els');
+        let route_obj_local = route_obj;
+        route_obj_local['page'] = +route_obj_local['page'] - 1;
+        nav.querySelector('div.previous-button').querySelector('a').name = this.router.makeRoute(route_obj_local);
         nav.querySelector('div.previous-button').querySelector('a').className = 'enabled';
       }
-      if (route_obj['page'] + 1 > this.count_pages) {
-        console.log('route_obj[\'page\']+1 >this.count_pages');
+      if (+route_obj['page'] + 1 > +this.count_pages) {
+        console.log('+1> pages');
         nav.querySelector('div.next-button').querySelector('a').className = 'disabled';
       } else {
-        nav.querySelector('div.next-button').querySelector('a').href = route_obj['page'] + 1;
+        console.log('+1 < pages');
+        console.log(+route_obj['page']);
+        let route_obj_local = route_obj;
+        route_obj_local['page'] = +route_obj_local['page'] + 1;
+        nav.querySelector('div.next-button').querySelector('a').name = this.router.makeRoute(route_obj_local);
         nav.querySelector('div.next-button').querySelector('a').className = 'enabled';
       }
     }
     if (this.count_pages < 6) {
-      console.log(typeof route_obj['page']);
       for (let page = 1; page <= this.count_pages; page++) {
         route_obj['page'] = page;
         let local_a = a.cloneNode(true);
         local_a.innerHTML = page;
         local_a.className = 'enabled';
-        local_a.href = this.makeRoute(route_obj);
+        local_a.name = this.router.makeRoute(route_obj);
         middle.append(local_a);
       }
 
       // если страниц больше 6
     } else {
-      // вывод первых 2 страниц
+      // вывод кнопок для первых 2 страниц
       for (let page = 1; page < 3; page++) {
         route_obj['page'] = page;
         let local_a = a.cloneNode(true);
         local_a.innerHTML = page;
         local_a.className = 'enabled';
-        local_a.href = this.makeRoute(route_obj);
+        local_a.name = this.router.makeRoute(route_obj);
         middle.append(local_a);
       }
       let local_a = a.cloneNode(true);
@@ -293,42 +327,22 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
       local_a.className = 'disabled';
       middle.append(local_a);
 
-      // вывод последних 2 страниц
+      // вывод кнопок для последних 2 страниц
       for (let page = this.count_pages - 1; page <= this.count_pages; page++) {
         route_obj['page'] = page;
         let local_a = a.cloneNode(true);
         local_a.innerHTML = page;
         local_a.className = 'enabled';
-        local_a.href = this.makeRoute(route_obj);
+        local_a.name = this.router.makeRoute(route_obj);
         middle.append(local_a);
       }
     }
   }
-  clearPaginator(nav) {
+  paginationClear(nav) {
     let paginator = nav.querySelectorAll('a');
     for (let i = 0; i < paginator.length; i++) {
       paginator[i].remove();
     }
-  }
-  routeExplode(route) {
-    let route_obj = {};
-    let route_array = route.split('/');
-    for (let key = 1; key < route_array.length; key += 2) {
-      let arr_elem = route_array[key];
-      route_obj[arr_elem] = route_array[key + 1];
-    }
-    return route_obj;
-  }
-  makeRoute(route_obj) {
-    let make_route = '/';
-    for (let key in route_obj) {
-      if (key !== 'limit') {
-        make_route = make_route + key + '/' + route_obj[key] + '/';
-      } else {
-        make_route = make_route + key + '/' + route_obj[key];
-      }
-    }
-    return make_route;
   }
   render(booking_list) {
     for (let booking_card in booking_list) {
@@ -367,9 +381,7 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
   generateError(message, card_id) {
     super.generateBlockError(message, document.getElementById(card_id));
   }
-  generateSuccess(message, card_id) {
-    // super.generateBlockError(message, document.getElementById(card_id));
-  }
+  generateSuccess(message, card_id) {}
   cloneBookingCard() {
     let card_control = document.querySelector('.booking-card-control');
     let card = card_control.cloneNode(true);
@@ -387,8 +399,6 @@ class OperatorMenu extends _BaseForm__WEBPACK_IMPORTED_MODULE_1__["default"] {
   }
 }
 
-// new OperatorMenu()
-
 /***/ }),
 
 /***/ "../js/OperatorMenu/Router.js":
@@ -402,15 +412,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Router)
 /* harmony export */ });
 class Router {
-  default_route_obj = {};
+  default_route;
   cached_route;
-  getRoute() {
-    return this.cached_route;
+  page = 1;
+  limit = 2;
+  constructor() {
+    this.default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/' + this.getPage() + '/limit/' + this.getLimit();
+    this.cached_route = this.default_route;
   }
   setRoute(route) {
     this.cached_route = route;
   }
+  setPage(page) {
+    this.page = page;
+  }
+  setLimit(limit) {
+    console.log('router-lim:', limit);
+    this.limit = limit;
+    let route = this.routeExplode(this.getRoute());
+    route['limit'] = limit;
+    this.setRoute(this.makeRoute(route));
+  }
   setCookieRoute() {}
+  getRoute() {
+    return this.cached_route;
+  }
+  getPage() {
+    return this.page;
+  }
+  getLimit() {
+    return this.limit;
+  }
   routeExplode(route) {
     let route_obj = {};
     let route_array = route.split('/');
@@ -582,8 +614,10 @@ class NameValidate extends _Validators_BaseValidator__WEBPACK_IMPORTED_MODULE_0_
   }
   Validate(field_value) {
     try {
-      //@TODO: ошибка - ожидается DOM элемент, отправляется его значение
-      return this.CheckLength.checkLength(field_value);
+      let field_obj = {
+        value: field_value
+      };
+      return this.CheckLength.checkLength(field_obj);
     } catch (Error) {
       throw Error;
     }
@@ -702,10 +736,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class OperatorFilter {
-  cache_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
-  default_route = '/is-approved/null/sort-by/id/asc-or-desc/desc/page/1/limit/5';
   router = new _Router__WEBPACK_IMPORTED_MODULE_2__["default"]();
-  operatorMenu = new _OperatorMenu__WEBPACK_IMPORTED_MODULE_1__["default"](this.cache_route);
+  operatorMenu = new _OperatorMenu__WEBPACK_IMPORTED_MODULE_1__["default"](this.router);
   constructor() {
     let filter_control = document.querySelector('#filter-control');
     let self = this;
@@ -724,12 +756,13 @@ class OperatorFilter {
             controlsList[control].generateError(Error);
           }
         }
-        route = route + '/page/1/limit/5';
-        if (self.cache_route !== route) {
+        // route = route + '/page/1/limit/5';
+        route = route + '/page/' + self.router.getPage() + '/limit/' + self.router.getLimit();
+        if (self.router.getRoute() !== route) {
           // кеш роута
-          self.cache_route = route;
-          self.operatorMenu.setRoute(self.cache_route);
-          // передать данные на сервер
+          self.router.setRoute(route);
+
+          // передать данные в класс меню
           self.operatorMenu.clearPage();
           self.operatorMenu.getList(route);
         }
@@ -738,10 +771,10 @@ class OperatorFilter {
     document.querySelector('#reset-btn').onclick = function (event) {
       let target = event.target;
       if (target.tagName === 'INPUT') {
-        if (self.cache_route !== self.default_route) {
-          self.cache_route = self.default_route;
+        if (self.router.getRoute() !== self.router.default_route) {
+          self.router.setRoute(self.router.default_route);
           self.operatorMenu.clearPage();
-          self.operatorMenu.getList(self.default_route);
+          self.operatorMenu.getList(self.router.getRoute());
         }
       }
     };
@@ -990,6 +1023,278 @@ class SortByStatusControl extends _BaseControl__WEBPACK_IMPORTED_MODULE_0__["def
   }
   getRoute() {
     return '/is-approved/' + this.field.value;
+  }
+}
+
+/***/ }),
+
+/***/ "../js/Paginator/MiddleControl.js":
+/*!****************************************!*\
+  !*** ../js/Paginator/MiddleControl.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MiddleControl)
+/* harmony export */ });
+class MiddleControl {
+  nav;
+  middle;
+  a;
+  router;
+  first_page;
+  current_page;
+  last_page;
+  route_obj;
+  constructor(nav_dom_obj, router, count_pages) {
+    this.middle = nav_dom_obj.querySelector('div.middle');
+    this.a = document.createElement('a');
+    this.router = router;
+    this.route_obj = this.router.routeExplode(this.router.getRoute());
+    this.first_page = 1;
+    this.current_page = +this.route_obj['page'];
+    this.last_page = +count_pages;
+  }
+  nearestPages() {
+    this.numbers();
+    this.dots();
+  }
+  numbers() {
+    // <1 …  4 5 6 7 8 … 11 >
+    if (this.current_page - 2 - this.first_page > 2 && this.last_page - (this.current_page + 2) > 2) {
+      // вывод значений +-2 от текущего <1 …  4 5 6 7 8 … 11 >
+      for (let page = this.current_page - 2; page < this.current_page + 3; page++) {
+        this.addHtml(this.route_obj, page);
+      }
+    } else {
+      // <1 … 4 5 6 7 8 >
+      if (this.current_page - 2 - this.first_page > 2) {
+        for (let page = this.current_page - 2; page < this.last_page + 1; page++) {
+          this.addHtml(this.route_obj, page);
+          // добавить после
+        }
+      }
+      // <1 2 3 4 5 6   … 11 >
+      if (this.last_page - (this.current_page + 2) > 2) {
+        for (let page = 1; page < this.current_page + 3; page++) {
+          this.addHtml(this.route_obj, page);
+          // добавить перед
+        }
+      }
+
+      // <1 2 3 4 5 6 7 8 >
+      if (!(this.current_page - 2 - this.first_page > 2) && !(this.last_page - (this.current_page + 2) > 2)) {
+        for (let page = 1; page < this.last_page + 1; page++) {
+          this.addHtml(this.route_obj, page);
+        }
+      }
+    }
+  }
+  dots() {
+    // если разница между первой/последней и +-2 страницы от текущей больше 2
+    if (!(this.current_page - 2 - this.first_page > 2) && !(this.last_page - (this.current_page + 2) > 2)) {
+      // не выводить ничего
+    } else {
+      // если текущая +-2 больше первой/последней страницы более чем на 2 страницы
+      if (this.current_page > 5 && this.last_page - this.current_page > 4) {
+        // вывести с обеих сторон
+        this.addDotsHtml('left');
+        this.addDotsHtml('right');
+      } else {
+        // если текущая -2 больше первой страницы более чем на 2 страницы
+        if (this.current_page - 2 - this.first_page > 2) {
+          // <1 … 4 5 6 7 8 >
+          // вывести слева
+          this.addDotsHtml('left');
+        } else {
+          // <1 2 3 4 5 6 … 11 >
+          // вывести справа
+          this.addDotsHtml('right');
+        }
+      }
+    }
+  }
+  addHtml(route_obj, page) {
+    route_obj['page'] = page;
+    let local_a = this.a.cloneNode(true);
+    local_a.innerHTML = page;
+    local_a.className = 'enabled';
+    local_a.name = this.router.makeRoute(route_obj);
+    this.middle.append(local_a);
+  }
+  addDotsHtml(left_or_right) {
+    let local_a = this.a.cloneNode(true);
+    local_a.innerHTML = '...';
+    local_a.className = 'disabled';
+    switch (left_or_right) {
+      case 'right':
+        this.middle.append(local_a);
+        break;
+      case 'left':
+        this.middle.prepend(local_a);
+        break;
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "../js/Paginator/Paginator.js":
+/*!************************************!*\
+  !*** ../js/Paginator/Paginator.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Paginator)
+/* harmony export */ });
+/* harmony import */ var _PaginatorController__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaginatorController */ "../js/Paginator/PaginatorController.js");
+
+class Paginator {
+  constructor(nav_dom_obj, router, count_pages) {
+    let paginationController = new _PaginatorController__WEBPACK_IMPORTED_MODULE_0__["default"](nav_dom_obj, router, count_pages);
+    paginationController.paginationAction();
+  }
+}
+
+/***/ }),
+
+/***/ "../js/Paginator/PaginatorController.js":
+/*!**********************************************!*\
+  !*** ../js/Paginator/PaginatorController.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PaginatorController)
+/* harmony export */ });
+/* harmony import */ var _MiddleControl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MiddleControl */ "../js/Paginator/MiddleControl.js");
+/* harmony import */ var _SidebarControl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SidebarControl */ "../js/Paginator/SidebarControl.js");
+
+
+class PaginatorController {
+  nav;
+  router;
+  count_pages;
+  sidebarControl;
+  middleControl;
+  constructor(nav_dom_obj, router, count_pages) {
+    this.nav = nav_dom_obj;
+    this.router = router;
+    this.count_pages = count_pages;
+    this.sidebarControl = new _SidebarControl__WEBPACK_IMPORTED_MODULE_1__["default"](nav_dom_obj, router, count_pages);
+    this.middleControl = new _MiddleControl__WEBPACK_IMPORTED_MODULE_0__["default"](nav_dom_obj, router, count_pages);
+  }
+  paginationAction() {
+    let self = this;
+
+    // очистка
+    this.clearAction();
+
+    // проверка на отображение панели пагинатора
+    if (+this.count_pages > 1) {
+      this.nav.className = 'enabled';
+      this.sidebarControl.previousPage();
+      this.middleControl.nearestPages();
+      this.sidebarControl.nextPage();
+      this.addActiveButton();
+    } else {
+      this.nav.className = 'disabled';
+    }
+  }
+  addActiveButton() {
+    let self = this;
+    Array.from(this.nav.querySelector('div.middle').querySelectorAll('a')).forEach(function (button) {
+      let page = self.router.routeExplode(self.router.getRoute());
+      page = page['page'];
+      if (+button.textContent === +page) {
+        button.className = button.className + ' active';
+      }
+    });
+  }
+  clearAction() {
+    let paginator = this.nav.querySelector('div.middle').querySelectorAll('a');
+    for (let i = 0; i < paginator.length; i++) {
+      paginator[i].remove();
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "../js/Paginator/SidebarControl.js":
+/*!*****************************************!*\
+  !*** ../js/Paginator/SidebarControl.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SidebarControl)
+/* harmony export */ });
+class SidebarControl {
+  previous_btn_a;
+  next_btn_a;
+  nav;
+  route_obj;
+  count_pages;
+  constructor(nav_obj, router, count_pages) {
+    this.nav = nav_obj;
+    this.previous_btn_a = this.nav.querySelector('div.previous-button').querySelector('a');
+    this.next_btn_a = this.nav.querySelector('div.next-button').querySelector('a');
+    this.router = router;
+    this.route_obj = this.router.routeExplode(this.router.getRoute());
+    this.count_pages = +count_pages;
+  }
+  previousPage() {
+    let current_page = +this.route_obj['page'];
+    // проверить, можно ли перейти на предидущую страницу
+    if (+this.route_obj['page'] - 1 !== 0) {
+      // перейти возможно
+
+      // изменить номер страницы в роуте
+
+      this.route_obj['page'] = 1;
+
+      // добавление роута для перехода на 1 страницу
+      this.previous_btn_a.name = this.router.makeRoute(this.route_obj);
+      this.previous_btn_a.title = 'Перейти к первой странице';
+
+      // вернуть номер текущей страницы в роут
+      this.route_obj['page'] = current_page;
+      this.previous_btn_a.className = 'enabled';
+    } else {
+      // перейти невозможно
+      this.previous_btn_a.className = 'disabled';
+    }
+    if (current_page < 6) {
+      this.previous_btn_a.className = 'disabled';
+    }
+  }
+  nextPage() {
+    let current_page = +this.route_obj['page'];
+    // проверить, можно ли перейти на следующую страницу
+    if (+this.route_obj['page'] + 1 >= +this.count_pages) {
+      // перейти невозможно
+      this.next_btn_a.className = 'disabled';
+    } else {
+      // перейти возможно
+      this.route_obj['page'] = this.count_pages;
+
+      // добавление роута для перехода на следующую страницу
+      this.next_btn_a.name = this.router.makeRoute(this.route_obj);
+      this.next_btn_a.title = 'Перейти к последней странице (' + this.count_pages + ')';
+
+      // вернуть номер текущей страницы в роут
+      this.route_obj['page'] = current_page;
+      this.next_btn_a.className = 'enabled';
+    }
+    if (this.count_pages - current_page < 5) {
+      this.next_btn_a.className = 'disabled';
+    }
   }
 }
 
