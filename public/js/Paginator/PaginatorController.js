@@ -26,9 +26,9 @@ export default class PaginatorController {
         // проверка на отображение панели пагинатора
         if (+this.count_pages > 1) {
             this.nav.className = 'enabled';
-            this.sidebarControl.previousPage();
+            this.sidebarControl.firstPage();
             this.middleControl. nearestPages();
-            this.sidebarControl.nextPage();
+            this.sidebarControl.lastPage();
             this.addActiveButton();
         } else {
             this.nav.className = 'disabled';

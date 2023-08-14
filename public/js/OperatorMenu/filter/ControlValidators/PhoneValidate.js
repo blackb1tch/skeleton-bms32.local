@@ -1,5 +1,5 @@
-import BaseValidator from "../../../Validators/BaseValidator";
-import CheckPhone from "../../../Validators/CheckPhone";
+import BaseValidator from "../../../Validator/BaseValidator";
+import CheckPhone from "../../../Validator/CheckPhone";
 
 export default class PhoneValidate extends BaseValidator {
     format = 'rus';

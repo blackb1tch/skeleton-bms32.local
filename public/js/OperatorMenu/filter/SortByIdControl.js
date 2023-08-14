@@ -1,5 +1,5 @@
 import BaseControl from "./BaseControl";
-import BaseForm from "../../BaseForm";
+import BaseForm from "../../Form/BaseForm";
 
 export default class SortByIdControl extends BaseControl {
     field = document.querySelector('#sort-by-id').querySelector('input[type=radio]:checked');

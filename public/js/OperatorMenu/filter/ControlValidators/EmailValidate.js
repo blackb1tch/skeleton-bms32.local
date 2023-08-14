@@ -1,5 +1,5 @@
-import BaseValidator from "../../../Validators/BaseValidator";
-import CheckEmail from "../../../Validators/CheckEmail";
+import BaseValidator from "../../../Validator/BaseValidator";
+import CheckEmail from "../../../Validator/CheckEmail";
 
 export default class EmailValidate extends BaseValidator {
     constructor() {

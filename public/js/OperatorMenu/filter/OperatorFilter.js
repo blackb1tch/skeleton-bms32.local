@@ -2,7 +2,7 @@ import ControlsList from "./ControlsList";
 import OperatorMenu from "../OperatorMenu";
 import Router from "../Router";
 
-class OperatorFilter {
+export default class OperatorFilter {
     router = new Router();
     operatorMenu = new OperatorMenu(this.router);
 

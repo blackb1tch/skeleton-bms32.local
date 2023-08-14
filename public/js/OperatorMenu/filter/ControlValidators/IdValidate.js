@@ -1,4 +1,4 @@
-import BaseValidator from "../../../Validators/BaseValidator";
+import BaseValidator from "../../../Validator/BaseValidator";
 
 export default class IdValidate extends BaseValidator {
     constructor() {

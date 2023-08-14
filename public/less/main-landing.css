@@ -165,15 +165,23 @@ form ul li {
 }
 .btn {
   font-family: 'Ubuntu', serif, serif;
+  font-size: 100%;
   display: block;
   text-align: center;
   cursor: pointer;
+  box-sizing: content-box;
+  background-color: transparent;
   padding: 0.5em 1em 0.25em 1em;
-  margin: 0.25em 0.25em 0.25em 0.25em;
+  margin: 0.25em 0.25em 0.25em 0;
   width: 4.5em;
   height: 1.3em;
   border: 0.0625em solid black;
   border-radius: 0.25em;
+}
+.btn-wide {
+  text-align: center;
+  text-decoration: none;
+  width: 7em;
 }
 .btn-success {
   color: #fff;
@@ -297,17 +305,11 @@ div.navbar-header {
 }
 .container .main-container input[type="text"],
 .container .main-container textarea {
-  border: 1px solid #007bff;
   border-radius: 4px;
   width: 99%;
   padding-top: 0.3em;
   padding-bottom: 0.3em;
   margin: 0.2em 0.2em 0.2em 0;
-}
-.container .main-container .btn {
-  margin: 0.2em 0.2em 0.2em 0;
-  width: 7em;
-  height: 2em;
 }
 .container .main-container > div {
   width: 70%;

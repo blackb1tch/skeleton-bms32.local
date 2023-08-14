@@ -1,5 +1,5 @@
-import BaseValidator from "../../../Validators/BaseValidator";
-import CheckLength from "../../../Validators/CheckLength";
+import BaseValidator from "../../../Validator/BaseValidator";
+import CheckLength from "../../../Validator/CheckLength";
 
 export default class NameValidate extends BaseValidator {
     CheckLength;

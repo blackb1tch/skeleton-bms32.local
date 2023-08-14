@@ -1,6 +1,6 @@
 import BaseControl from "./BaseControl";
 import DateValidate from "./ControlValidators/DateValidate";
-import BaseForm from "../../BaseForm";
+import BaseForm from "../../Form/BaseForm";
 
 export default class SearchByDateControl extends BaseControl {
     dateValidate = new DateValidate();

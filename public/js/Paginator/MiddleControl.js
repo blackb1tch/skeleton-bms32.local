@@ -21,24 +21,25 @@ export default class MiddleControl {
     }
 
     nearestPages() {
-        this.numbers();
-        this.dots();
+        this.render();
+        this.renderLeftDots();
+        this.renderRightDots();
     }
 
-    numbers() {
-        // <1 …  4 5 6 7 8 … 11 >
+    renderDigits() {
+        // < …  4 5 6 7 8 …  >
         if (((this.current_page - 2) - this.first_page > 2) && (this.last_page - (this.current_page + 2) > 2)) {
 
             // вывод значений +-2 от текущего <1 …  4 5 6 7 8 … 11 >
             for (let page = this.current_page - 2; page < this.current_page + 3; page++) {
-                this.addHtml(this.route_obj, page);
+                this.addDigitHtml(this.route_obj, page);
             }
         } else {
             // <1 … 4 5 6 7 8 >
             if ((this.current_page - 2) - this.first_page > 2) {
 
                 for (let page = this.current_page - 2; page < this.last_page + 1; page++) {
-                    this.addHtml(this.route_obj, page);
+                    this.addDigitHtml(this.route_obj, page);
                     // добавить после
 
                 }
@@ -46,7 +47,7 @@ export default class MiddleControl {
             // <1 2 3 4 5 6   … 11 >
             if (this.last_page - (this.current_page + 2) > 2) {
                 for (let page = 1; page < this.current_page + 3; page++) {
-                    this.addHtml(this.route_obj, page);
+                    this.addDigitHtml(this.route_obj, page);
                     // добавить перед
                 }
             }
@@ -54,38 +55,71 @@ export default class MiddleControl {
             // <1 2 3 4 5 6 7 8 >
             if ((!((this.current_page - 2) - this.first_page > 2) && !(this.last_page - (this.current_page + 2) > 2))) {
                 for (let page = 1; page < this.last_page + 1; page++) {
-                    this.addHtml(this.route_obj, page);
+                    this.addDigitHtml(this.route_obj, page);
                 }
             }
         }
     }
 
-    dots() {
-        // если разница между первой/последней и +-2 страницы от текущей больше 2
-        if ((!((this.current_page - 2) - this.first_page > 2) && !(this.last_page - (this.current_page + 2) > 2))) {
-            // не выводить ничего
-        } else {
-            // если текущая +-2 больше первой/последней страницы более чем на 2 страницы
-            if ((this.current_page > 5) && (this.last_page - this.current_page > 4)) {
-                // вывести с обеих сторон
-                this.addDotsHtml('left');
-                this.addDotsHtml('right');
-            } else {
-                // если текущая -2 больше первой страницы более чем на 2 страницы
-                if ((this.current_page - 2) - this.first_page > 2) {
-                    // <1 … 4 5 6 7 8 >
-                    // вывести слева
-                    this.addDotsHtml('left');
-                } else {
-                    // <1 2 3 4 5 6 … 11 >
-                    // вывести справа
-                    this.addDotsHtml('right');
-                }
+    renderFirstPage() {
+        // 1 выводится всегда
+        this.addDigitHtml(this.route_obj, this.first_page);
+    }
+
+    renderLastPage() {
+
+    }
+    renderDigitsLeftPage(){
+
+    }
+
+    renderDigitsCurrentPage(){
+
+    }
+    renderDigitsRightPage(){
+
+    }
+
+    render() {
+
+        // последняя выводится всегда
+        if ((this.last_page !== this.current_page) && (this.first_page !== this.last_page)) {
+            this.addDigitHtml(this.route_obj, this.last_page);
+        }
+
+
+        // если разница между текущей страницей и первой >=4
+        // вывести
+        if (((this.current_page - 2) - this.first_page > 2) && (this.last_page - (this.current_page + 2) > 2)) {
+            console.log('render');
+            for (let page = this.current_page - 2; page <= this.current_page + 2; page++) {
+                this.addDigitHtml(this.route_obj, page);
+                // добавить после
+
             }
         }
     }
 
-    addHtml(route_obj, page) {
+    renderLeftDots() {
+        // если разница между текущей страницей и первой >=4
+        // вывести
+        if ((this.current_page - this.first_page) >= 4) {
+            console.log('current:', this.current_page, 'leftDots');
+
+            this.addDotsHtml('left');
+        }
+    }
+
+    renderRightDots() {
+        // если разница между последней и текущей страницей >=4
+        // вывести
+        if ((this.last_page - this.current_page) >= 4) {
+            console.log('current:', this.current_page, 'rightDots');
+            this.addDotsHtml('right');
+        }
+    }
+
+    addDigitHtml(route_obj, page) {
         route_obj['page'] = page;
         let local_a = this.a.cloneNode(true);
         local_a.innerHTML = page;

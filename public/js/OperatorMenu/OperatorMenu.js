@@ -1,5 +1,5 @@
-import XHR from '../xhr';
-import BaseForm from "../BaseForm";
+import XHR from '../Utils/xhr';
+import BaseForm from "../Form/BaseForm";
 import Paginator from "../Paginator/Paginator";
 
 export default class OperatorMenu extends BaseForm {
@@ -55,13 +55,13 @@ export default class OperatorMenu extends BaseForm {
                 let target = event.target;
 
                 switch (target.className) {
-                    case 'btn btn-outline-danger booking-decline':
+                    case 'btn btn-wide btn-outline-danger booking-decline':
                         self.areYouSure(card, target);
                         break;
-                    case 'btn btn-outline-success booking-approve':
+                    case 'btn btn-wide btn-outline-success booking-approve':
                         self.areYouSure(card, target);
                         break;
-                    case 'btn btn-outline-secondary booking-edit':
+                    case 'btn btn-wide btn-outline-secondary booking-edit':
                         self.editBooking(card);
                         break;
 

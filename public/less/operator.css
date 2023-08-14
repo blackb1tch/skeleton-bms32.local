@@ -165,15 +165,23 @@ form ul li {
 }
 .btn {
   font-family: 'Ubuntu', serif, serif;
+  font-size: 100%;
   display: block;
   text-align: center;
   cursor: pointer;
+  box-sizing: content-box;
+  background-color: transparent;
   padding: 0.5em 1em 0.25em 1em;
-  margin: 0.25em 0.25em 0.25em 0.25em;
+  margin: 0.25em 0.25em 0.25em 0;
   width: 4.5em;
   height: 1.3em;
   border: 0.0625em solid black;
   border-radius: 0.25em;
+}
+.btn-wide {
+  text-align: center;
+  text-decoration: none;
+  width: 7em;
 }
 .btn-success {
   color: #fff;
@@ -366,16 +374,6 @@ div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons {
 div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div {
   justify-content: center;
 }
-div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div a {
-  text-align: center;
-  text-decoration: none;
-  width: 7em;
-}
-div.booking-card-list div.booking-card-control ul.booking-card li.card-buttons div input {
-  height: 2.2em;
-  width: 9em;
-  padding-top: 0.3em;
-}
 div.booking-card-list div.booking-card-control ul.booking-card-declined {
   background-color: #f8d7da;
 }
@@ -490,13 +488,13 @@ div.filter ul.control-list li.control div.control div.header div.control-label d
   margin-bottom: 0.5em;
   margin-left: 0.25em;
   margin-right: 0.25em;
-  width: 13em;
+  width: 12.75em;
 }
 div.filter ul.control-list li.control div.control div.header div.control-label div div:nth-child(2) {
   float: right;
 }
 div.filter ul.control-list li.control div.control div#search-by-message div.header div.control-label div:first-child div:first-child {
-  width: 13.875em;
+  width: 13.625em;
 }
 div.filter ul.control-list li.control div.control div.content {
   display: flex;
@@ -508,7 +506,7 @@ div.filter ul.control-list li.control div.control div.content {
 div.filter ul.control-list li.control div.control div.content div.error-msg {
   color: #dc3545;
   margin: 0.25em;
-  width: 13.875em;
+  width: 13.625em;
 }
 div.filter ul.control-list li.control div.control div.content div.form_radio_btn label:hover {
   color: #f8f9fa;
@@ -522,9 +520,8 @@ div.filter ul.control-list li.control div.control div.content div.form_radio_btn
   background-color: #007bff;
 }
 div.filter ul.control-list li.control div.control div.content div#reset-btn label {
-  width: 13.375em;
+  width: 13.125em;
   padding: 0.25em 0.125em 0.25em 0.125em;
-  margin: 0.25em 0.25em 0.25em 0.25em;
 }
 div.filter ul.control-list li.control div.control div.content input {
   border: 0.0625em solid #007bff;
@@ -535,12 +532,12 @@ div.filter ul.control-list li.control div.control div.content input {
   padding: 0.25em 0.125em 0.25em 0.125em;
 }
 div.filter ul.control-list li.control div.control div.content div#main-search input#main-search {
-  width: 13.375em;
+  width: 13.125em;
   padding: 0.25em 0.125em 0.25em 0.125em;
   margin: 0.25em 0.25em 0.25em 0.25em;
 }
 div.filter ul.control-list li.control div.control div#date-search div.content div.search-input {
-  width: 13.875em;
+  width: 13.625em;
   display: flex;
 }
 div.filter ul.control-list li.control div.control div#date-search div.content div.search-input input {

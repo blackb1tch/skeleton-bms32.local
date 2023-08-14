@@ -69,9 +69,12 @@ form {
 
 .btn {
   font-family: @main-font, serif;
+  font-size: 100%;
   display: block;
   text-align: center;
   cursor: pointer;
+  box-sizing: content-box;
+  background-color: transparent;
 
   padding: @padding-label-button;
   margin:@margin-label-button;
@@ -79,6 +82,11 @@ form {
   height: @height-label-button;
   border: @border-label-button-size @border-label-button-type black;
   border-radius: @border-radius;
+}
+.btn-wide {
+  text-align: center;
+  text-decoration: none;
+  width: @width-a-button;
 }
 
 .btn-success {

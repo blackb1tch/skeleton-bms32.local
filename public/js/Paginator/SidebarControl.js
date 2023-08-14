@@ -15,7 +15,7 @@ export default class SidebarControl {
         this.count_pages = +count_pages;
     }
 
-    previousPage() {
+    firstPage() {
         let current_page = +this.route_obj['page'];
         // проверить, можно ли перейти на предидущую страницу
         if (+this.route_obj['page'] - 1 !== 0) {
@@ -41,7 +41,7 @@ export default class SidebarControl {
         }
     }
 
-    nextPage() {
+    lastPage() {
         let current_page = +this.route_obj['page'];
         // проверить, можно ли перейти на следующую страницу
         if (+this.route_obj['page'] + 1 >= +this.count_pages) {

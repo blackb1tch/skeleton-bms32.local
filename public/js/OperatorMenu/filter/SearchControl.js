@@ -1,5 +1,5 @@
 import BaseControl from "./BaseControl";
-import BaseForm from "../../BaseForm";
+import BaseForm from "../../Form/BaseForm";
 import SearchControlValidatorsList from "./ControlValidators/SearchControlValidatorsList";
 
 export default class SearchControl extends BaseControl {
